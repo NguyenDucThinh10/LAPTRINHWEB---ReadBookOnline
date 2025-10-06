@@ -1,0 +1,5 @@
+﻿{
+  "//": "Quản lý thư viện (tùy chọn) + autoload PSR-4",
+  "name": "yourname/sach-truc-tuyen",
+  "autoload": { "psr-4": { "App\\\": "app/" } }
+}
