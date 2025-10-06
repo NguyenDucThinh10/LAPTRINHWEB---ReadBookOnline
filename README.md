@@ -1,1 +1,4 @@
-# LAPTRINHWEB---TELEPHONE-STORE
+﻿# 📚 Cấu trúc dự án sach-truc-tuyen
+
+Cấu trúc thư mục chuẩn theo mô hình MVC cho ứng dụng web đọc sách online.
+(Chi tiết từng phần được ghi chú trong file .php)
