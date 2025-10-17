@@ -1,73 +1,60 @@
-﻿<?php
-// Hiển thị lỗi để dễ debug
-error_reporting(E_ALL);
+﻿<!-- ĐIỂM TRUY CẬP DUY NHẤT (Front Controller) -->
+<?php
+// File: public/index.php
+
+// --------------------------------------------------------------------------
+// PHẦN 1: KHỞI TẠO ỨNG DỤNG (Lấy từ nhánh main)
+// --------------------------------------------------------------------------
+
+// Hiển thị lỗi để dễ debug trong quá trình phát triển
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// Đường dẫn gốc
+// Định nghĩa các đường dẫn gốc
 define('ROOT_PATH', dirname(__DIR__));
+define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/LAPTRINHWEB---ReadBookOnline/public');
 
-/*
-|--------------------------------------------------------------------------
-| Autoloader thủ công cho namespace "App\"
-|--------------------------------------------------------------------------
-| Tự động chuyển đổi "App\Core\Controller" => "app/Core/Controller.php"
-| Không cần composer.json hay vendor/autoload.php
-*/
+// Autoloader: "Cỗ máy" tự động require file khi cần
+// Đây là phần ma thuật lấy từ nhánh main, cực kỳ hữu ích.
 spl_autoload_register(function ($class) {
     $prefix = 'App\\';
     $base_dir = ROOT_PATH . '/app/';
-
-    // Kiểm tra class có thuộc namespace App\ không
     $len = strlen($prefix);
     if (strncmp($prefix, $class, $len) !== 0) {
-        return; // Bỏ qua nếu không phải App\
+        return;
     }
-
-    // Lấy phần tên class sau "App\"
     $relative_class = substr($class, $len);
-
-    // Chuyển namespace thành đường dẫn thật
     $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
-
-    // Nạp file nếu tồn tại
     if (file_exists($file)) {
         require $file;
     }
 });
 
-// Gọi các class cần thiết
-use App\Core\Router;
-use App\Controllers\Auth\AuthController;
+// --------------------------------------------------------------------------
+// PHẦN 2: BỘ ĐỊNH TUYẾN (Kết hợp cả hai ý tưởng)
+// --------------------------------------------------------------------------
 
-// Tạo router
-$router = new Router();
+// Lấy controller và action từ URL theo cách của bạn, rất đơn giản và hiệu quả.
+$controllerName = $_GET['controller'] ?? 'home';
+$actionName = $_GET['action'] ?? 'index';
 
-// ===============================
-// Định nghĩa routes
-// ===============================
+// Xây dựng tên Class và đường dẫn file
+// Chúng ta sẽ thêm namespace 'App\Controllers\' vào trước tên class
+$controllerClassName = 'App\\Controllers\\' . ucfirst($controllerName) . 'Controller';
 
-// Hiển thị trang login/signup
-$router->get('/auth/login', function() {
-    $controller = new AuthController();
-    $controller->showLoginForm();
-});
+// Kiểm tra và thực thi
+if (class_exists($controllerClassName)) {
+    $controllerInstance = new $controllerClassName();
 
-// Xử lý đăng ký
-$router->post('/auth/signup', function() {
-    $controller = new AuthController();
-    $controller->signup();
-});
-
-// Xử lý đăng nhập
-$router->post('/auth/login', function() {
-    $controller = new AuthController();
-    $controller->login();
-});
-
-// Trang chủ
-$router->get('/', function() {
-    require ROOT_PATH . '/app/Views/home.php';
-});
-
-// Chạy router
-$router->run();
+    if (method_exists($controllerInstance, $actionName)) {
+        // Mọi thứ đều đúng -> Gọi phương thức
+        $controllerInstance->$actionName();
+    } else {
+        die("Lỗi 404: Hành động '$actionName' không tồn tại trong controller '$controllerClassName'.");
+    }
+} else {
+    // Để autoloader hoạt động, chúng ta cần kiểm tra lại logic này một chút
+    // Ta sẽ giả định nếu class không tồn tại sau khi autoloader chạy, thì nó là lỗi 404.
+    die("Lỗi 404: Controller '$controllerClassName' không tìm thấy.");
+}

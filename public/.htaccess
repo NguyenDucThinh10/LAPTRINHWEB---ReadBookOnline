@@ -1,11 +1,7 @@
-﻿<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+﻿Options -Indexes
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
 
-    # Bỏ qua các tệp tĩnh CSS, JS, và hình ảnh
-    RewriteCond %{REQUEST_URI} !\.(css|js|jpg|jpeg|png|gif|bmp|webp|svg|ico|ttf|woff|woff2|eot)$ [NC]
-
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-</IfModule>
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

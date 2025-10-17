@@ -1,8 +1,10 @@
 ﻿<?php
+// config/database.php
+
 return [
     'host' => 'localhost',
     'dbname' => 'OnlineLibrary',
-    'username' => 'root',
-    'password' => '12312312',  // thay bằng mật khẩu MySQL nếu có
-    'charset' => 'utf8mb4'
+    'user' => 'root',        // Đổi tên 'username' thành 'user' cho nhất quán với code của bạn
+    'password' => '',            // NHẬP MẬT KHẨU NẾU CÓ
+    'charset' => 'utf8mb4'       // Giữ lại charset, rất tốt
 ];
