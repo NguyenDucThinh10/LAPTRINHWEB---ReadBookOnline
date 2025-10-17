@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 namespace App\Controllers;
-// File: app/Controllers/HomeController.php
+
 use App\Core\Database;
 use App\Models\Book;
 
@@ -12,8 +12,8 @@ class HomeController {
 
         // Phần còn lại giữ nguyên
         $bookModel = new Book($db);
-        $books = $bookModel->getAllBooks(); 
+        $books = $bookModel->getAllBooks();
 
-        require_once '../app/Views/home.php';
+        require_once ROOT_PATH . '/app/Views/home.php';
     }
 }

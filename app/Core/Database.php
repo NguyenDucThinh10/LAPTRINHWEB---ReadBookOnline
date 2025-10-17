@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // app/Core/Database.php
 
 namespace App\Core; // Giữ lại namespace, đây là một thực hành tốt

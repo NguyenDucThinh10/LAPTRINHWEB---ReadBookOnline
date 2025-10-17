@@ -1,5 +1,4 @@
-﻿<?php
-// File: app/Controllers/BookController.php
+<?php
 namespace App\Controllers;
 
 use App\Core\Database;
@@ -25,6 +24,6 @@ class BookController {
         $chapterModel = new Chapter($db);
         $chapters = $chapterModel->getChaptersByBookId($bookId);
 
-        require_once '../app/Views/books/show.php';
+        require_once ROOT_PATH . '/app/Views/books/show.php';
     }
 }
