@@ -2,11 +2,9 @@
 // config/database.php
 
 return [
-    'host' => 'localhost', // hoặc 127.0.0.1
+    'host' => 'localhost',
     'dbname' => 'OnlineLibrary',
-    'user' => 'root',
-    'password' => ''
+    'user' => 'root',        // Đổi tên 'username' thành 'user' cho nhất quán với code của bạn
+    'password' => '',            // NHẬP MẬT KHẨU NẾU CÓ
+    'charset' => 'utf8mb4'       // Giữ lại charset, rất tốt
 ];
-/**
-* Cấu hình CSDL
-*/

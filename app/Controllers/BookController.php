@@ -1,9 +1,10 @@
 ﻿<?php
 // File: app/Controllers/BookController.php
+namespace App\Controllers;
 
-require_once '../app/Core/Database.php';
-require_once '../app/Models/Book.php';
-require_once '../app/Models/Chapter.php'; // Thêm dòng này
+use App\Core\Database;
+use App\Models\Book;
+use App\Models\Chapter;
 
 class BookController {
     
@@ -14,18 +15,16 @@ class BookController {
             die("Thiếu ID sách!");
         }
 
-        $database = new Database();
-        $db = $database->getConnection();
+        // CÁCH KẾT NỐI MỚI - GỌN HƠN VÀ HIỆU QUẢ HƠN
+        $db = Database::getConnection();
         
-        // Lấy thông tin sách
+        // Phần còn lại giữ nguyên
         $bookModel = new Book($db);
         $book = $bookModel->findById($bookId);
 
-        // Lấy danh sách chương
         $chapterModel = new Chapter($db);
         $chapters = $chapterModel->getChaptersByBookId($bookId);
 
-        // Gọi view và truyền cả $book và $chapters
         require_once '../app/Views/books/show.php';
     }
 }

@@ -1,35 +1,32 @@
 ﻿<?php
 // app/Core/Database.php
 
-class Database {
-    private $host;
-    private $dbname;
-    private $user;
-    private $password;
-    private $conn;
+namespace App\Core; // Giữ lại namespace, đây là một thực hành tốt
 
-    public function __construct() {
-        // Tải cấu hình từ file
-        $config = require_once '../config/database.php';
-        
-        $this->host = $config['host'];
-        $this->dbname = $config['dbname'];
-        $this->user = $config['user'];
-        $this->password = $config['password'];
-    }
+use PDO;
+use PDOException;
 
-    public function getConnection() {
-        $this->conn = null;
-        $dsn = "mysql:host=" . $this->host . ";dbname=" . $this->dbname . ";charset=utf8mb4";
-        
-        try {
-            $this->conn = new PDO($dsn, $this->user, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            echo "Lỗi kết nối CSDL: " . $e->getMessage();
-            exit; // Dừng chương trình nếu không kết nối được
+class Database
+{
+    // Dùng static để đảm bảo chỉ có 1 kết nối duy nhất (Singleton Pattern)
+    protected static $connection;
+
+    // Phương thức static, gọi trực tiếp mà không cần tạo đối tượng: Database::getConnection()
+    public static function getConnection()
+    {
+        if (!self::$connection) {
+            $config = require_once __DIR__ . '/../../config/database.php';
+            try {
+                self::$connection = new PDO(
+                    "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}",
+                    $config['user'], // Sửa lại thành 'user' cho khớp với file config mới
+                    $config['password']
+                );
+                self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die('Database connection failed: '. $e->getMessage());
+            }
         }
-
-        return $this->conn;
+        return self::$connection;
     }
 }

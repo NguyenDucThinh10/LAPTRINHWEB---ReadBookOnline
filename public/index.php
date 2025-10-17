@@ -1,47 +1,60 @@
-﻿<?php
+﻿<!-- ĐIỂM TRUY CẬP DUY NHẤT (Front Controller) -->
+<?php
 // File: public/index.php
 
-// Định nghĩa BASE_URL
-define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/WebReadBook/LAPTRINHWEB---ReadBookOnline/public');
+// --------------------------------------------------------------------------
+// PHẦN 1: KHỞI TẠO ỨNG DỤNG (Lấy từ nhánh main)
+// --------------------------------------------------------------------------
 
-// --- BỘ ĐỊNH TUYẾN (ROUTER) THÔNG MINH ---
+// Hiển thị lỗi để dễ debug trong quá trình phát triển
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// 1. Lấy controller từ URL, nếu không có thì mặc định là 'home'
+// Định nghĩa các đường dẫn gốc
+define('ROOT_PATH', dirname(__DIR__));
+define('BASE_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/LAPTRINHWEB---ReadBookOnline/public');
+
+// Autoloader: "Cỗ máy" tự động require file khi cần
+// Đây là phần ma thuật lấy từ nhánh main, cực kỳ hữu ích.
+spl_autoload_register(function ($class) {
+    $prefix = 'App\\';
+    $base_dir = ROOT_PATH . '/app/';
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
+    }
+    $relative_class = substr($class, $len);
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+    if (file_exists($file)) {
+        require $file;
+    }
+});
+
+// --------------------------------------------------------------------------
+// PHẦN 2: BỘ ĐỊNH TUYẾN (Kết hợp cả hai ý tưởng)
+// --------------------------------------------------------------------------
+
+// Lấy controller và action từ URL theo cách của bạn, rất đơn giản và hiệu quả.
 $controllerName = $_GET['controller'] ?? 'home';
-
-// 2. Lấy action (hành động) từ URL, nếu không có thì mặc định là 'index'
 $actionName = $_GET['action'] ?? 'index';
 
-// 3. Xây dựng tên Class và đường dẫn File Controller
-// Ví dụ: controller 'book' -> class 'BookController' -> file 'BookController.php'
-$controllerClassName = ucfirst($controllerName) . 'Controller';
-$controllerFile = '../app/Controllers/' . $controllerClassName . '.php';
+// Xây dựng tên Class và đường dẫn file
+// Chúng ta sẽ thêm namespace 'App\Controllers\' vào trước tên class
+$controllerClassName = 'App\\Controllers\\' . ucfirst($controllerName) . 'Controller';
 
-// 4. KIỂM TRA: File controller có tồn tại không?
-if (file_exists($controllerFile)) {
-    
-    require_once $controllerFile;
+// Kiểm tra và thực thi
+if (class_exists($controllerClassName)) {
+    $controllerInstance = new $controllerClassName();
 
-    // 5. KIỂM TRA: Class có tồn tại bên trong file đó không?
-    if (class_exists($controllerClassName)) {
-
-        $controllerInstance = new $controllerClassName();
-
-        // 6. KIỂM TRA: Phương thức (action) có tồn tại trong class đó không?
-        if (method_exists($controllerInstance, $actionName)) {
-            
-            // 7. MỌI THỨ ĐỀU ĐÚNG -> Gọi phương thức
-            $controllerInstance->$actionName();
-
-        } else {
-            // Lỗi: không tìm thấy phương thức
-            die("Lỗi 404: Hành động '$actionName' không tồn tại trong controller '$controllerClassName'.");
-        }
+    if (method_exists($controllerInstance, $actionName)) {
+        // Mọi thứ đều đúng -> Gọi phương thức
+        $controllerInstance->$actionName();
     } else {
-        // Lỗi: không tìm thấy class
-        die("Lỗi 404: Class '$controllerClassName' không được định nghĩa trong file '$controllerFile'.");
+        die("Lỗi 404: Hành động '$actionName' không tồn tại trong controller '$controllerClassName'.");
     }
 } else {
-    // Lỗi: không tìm thấy file
-    die("Lỗi 404: File controller '$controllerFile' không tìm thấy.");
+    // Để autoloader hoạt động, chúng ta cần kiểm tra lại logic này một chút
+    // Ta sẽ giả định nếu class không tồn tại sau khi autoloader chạy, thì nó là lỗi 404.
+    die("Lỗi 404: Controller '$controllerClassName' không tìm thấy.");
 }

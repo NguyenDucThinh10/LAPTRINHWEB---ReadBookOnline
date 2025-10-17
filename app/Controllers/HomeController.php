@@ -1,20 +1,19 @@
 ﻿<?php
+namespace App\Controllers;
 // File: app/Controllers/HomeController.php
-
-require_once '../app/Core/Database.php';
-require_once '../app/Models/Book.php';
+use App\Core\Database;
+use App\Models\Book;
 
 class HomeController {
+    
     public function index() {
-        $database = new Database();
-        $db = $database->getConnection();
+        // CÁCH KẾT NỐI MỚI - GỌN HƠN VÀ HIỆU QUẢ HƠN
+        $db = Database::getConnection();
 
+        // Phần còn lại giữ nguyên
         $bookModel = new Book($db);
-        
-        // DÒNG NÀY TẠO RA BIẾN $books
         $books = $bookModel->getAllBooks(); 
 
-        // Sau đó nó gọi phòng trưng bày và mang theo biến $books
         require_once '../app/Views/home.php';
     }
 }

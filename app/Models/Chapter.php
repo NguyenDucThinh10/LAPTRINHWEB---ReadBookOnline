@@ -1,6 +1,7 @@
 ﻿<?php
 // File: app/Models/Chapter.php
-
+namespace App\Models;
+use PDO;
 class Chapter {
     private $conn;
     private $table = "Chapters";
