@@ -64,3 +64,24 @@ CREATE TABLE Reviews (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+-- =====================================================
+-- BẢNG CHAPTERS (BẢNG MỚI DÀNH CHO CHỨC NĂNG ĐỌC SÁCH)
+-- =====================================================
+CREATE TABLE Chapters (
+    chapter_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT NOT NULL,
+    chapter_number INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content LONGTEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    -- Khóa ngoại liên kết tới bảng Booksbooks
+    CONSTRAINT fk_chapters_book
+        FOREIGN KEY (book_id) REFERENCES Books(book_id)
+        ON DELETE CASCADE -- Nếu sách bị xóa, các chương cũng sẽ bị xóa theo
+        ON UPDATE CASCADE,
+        
+    -- Đảm bảo mỗi sách không thể có 2 chương trùng số thứ tự
+    CONSTRAINT uq_book_chapter UNIQUE (book_id, chapter_number)
+);

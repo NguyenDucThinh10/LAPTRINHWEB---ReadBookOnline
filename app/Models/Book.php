@@ -19,4 +19,13 @@ class Book {
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function findById($id) {
+        $query = "SELECT * FROM " . $this->table . " WHERE book_id = :id LIMIT 1";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT); // Thêm kiểu dữ liệu để an toàn hơn
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
