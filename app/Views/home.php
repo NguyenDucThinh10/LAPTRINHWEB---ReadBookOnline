@@ -107,7 +107,7 @@ ob_start();
 
                   <!-- SỬA 2: Thay nút "Add to cart" bằng nút "Xem chi tiết" -->
                   <!-- Link này sẽ dẫn đến trang chi tiết của sách sau này -->
-                  <a href="index.php?controller=book&action=detail&id=<?php echo $book['book_id']; ?>"
+                  <a href="<?php echo BASE_URL; ?>/index.php?controller=book&action=detail&id=<?php echo $book['book_id']; ?>"
                     class="add-to-cart">
                     Xem chi tiết
                   </a>

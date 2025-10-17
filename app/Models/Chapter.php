@@ -1,5 +1,4 @@
-﻿<?php
-// File: app/Models/Chapter.php
+<?php
 namespace App\Models;
 use PDO;
 class Chapter {

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // File: app/Models/Book.php
 namespace App\Models;
 use PDO;

@@ -1,6 +1,6 @@
 <?php
-// File: app/Controllers/ChapterController.php
 namespace App\Controllers;
+
 use App\Core\Database;
 use App\Models\Chapter;
 
@@ -26,6 +26,6 @@ class ChapterController {
         $prevChapter = $chapterModel->findPreviousChapter($chapter['book_id'], $chapter['chapter_number']);
         $nextChapter = $chapterModel->findNextChapter($chapter['book_id'], $chapter['chapter_number']);
 
-        require_once '../app/Views/chapters/read.php';
+        require_once ROOT_PATH . '/app/Views/chapters/read.php';
     }
 }
