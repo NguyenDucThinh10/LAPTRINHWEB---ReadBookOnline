@@ -45,6 +45,24 @@ ob_start();
               </a>
             </div>
             <?php endif; ?>
+                        <!-- NÚT: Thêm vào tủ -->
+            <form action="<?= BASE_URL ?>/?controller=shelf&action=add" method="POST" class="mt-3">
+              <input type="hidden" name="book_id" value="<?= (int)$book['book_id'] ?>">
+
+              <!-- (tùy chọn) chọn trạng thái khi thêm -->
+              <div class="d-inline-block me-2">
+                <select name="status" class="form-select" style="display:inline-block;width:auto;">
+                  <option value="want_to_read">Muốn đọc</option>
+                  <option value="reading">Đang đọc</option>
+                  <option value="finished">Đã đọc</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-outline-accent btn-accent-arrow">
+                Thêm vào tủ <i class="icon icon-clipboard"></i>
+              </button>
+            </form>
+
           </div>
         </div>
       </div>

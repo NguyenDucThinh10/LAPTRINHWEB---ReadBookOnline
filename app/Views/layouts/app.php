@@ -22,6 +22,16 @@
   <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style.css">
 
 </head>
+    <?php
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    $__flash = $_SESSION['flash'] ?? null;
+    unset($_SESSION['flash']);
+    ?>
+    <?php if ($__flash): ?>
+      <div class="container" style="margin-top:16px;">
+        <div class="alert accent-alert"><?= htmlspecialchars($__flash) ?></div>
+      </div>
+    <?php endif; ?>
 
 <body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
 
@@ -113,7 +123,9 @@
                   <li class="menu-item"><a href="#popular-books" class="nav-link">Popular</a></li>
                   <li class="menu-item"><a href="#special-offer" class="nav-link">Offer</a></li>
                   <li class="menu-item"><a href="#latest-blog" class="nav-link">Articles</a></li>
-                  <li class="menu-item"><a href="#download-app" class="nav-link">Download App</a></li>
+                  <li class="menu-item"><a href="<?= BASE_URL ?>/?controller=shelf&action=index" class="nav-link">Tủ Sách</a>
+                </li>
+
                 </ul>
 
                 <div class="hamburger">

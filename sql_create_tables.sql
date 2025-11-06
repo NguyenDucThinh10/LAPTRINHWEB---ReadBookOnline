@@ -85,3 +85,26 @@ CREATE TABLE Chapters (
     -- Đảm bảo mỗi sách không thể có 2 chương trùng số thứ tự
     CONSTRAINT uq_book_chapter UNIQUE (book_id, chapter_number)
 );
+-- =====================================================
+-- BẢNG SHELFITEMS (TỦ SÁCH CỦA NGƯỜI DÙNG)
+-- =====================================================
+CREATE TABLE ShelfItems (
+    shelf_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    book_id INT NOT NULL,
+    status ENUM('want_to_read','reading','finished') DEFAULT 'want_to_read',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_shelf_user
+        FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CONSTRAINT fk_shelf_book
+        FOREIGN KEY (book_id) REFERENCES Books(book_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CONSTRAINT uq_user_book UNIQUE (user_id, book_id)
+);

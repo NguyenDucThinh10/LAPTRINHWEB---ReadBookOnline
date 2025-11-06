@@ -25,5 +25,9 @@ class BookController {
         $chapters = $chapterModel->getChaptersByBookId($bookId);
 
         require_once ROOT_PATH . '/app/Views/books/show.php';
-    }
+    
+}
+        public function show() {
+                $this->detail();
+            }
 }

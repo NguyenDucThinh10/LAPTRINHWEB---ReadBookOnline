@@ -2442,3 +2442,223 @@ footer#footer {
     width: 100%;
   }
 }
+/* ===================== */
+/*  Shelf page – styling */
+/* ===================== */
+:root{
+  --bg-soft: #f6f2e9;         /* be nhạt gần Home */
+  --ink: #1f1f1f;
+  --muted: #7a7a7a;
+  --card: #fff;
+  --line: #e7e1d6;
+  --accent: #d4a373;          /* cam đất nhẹ */
+  --accent-ink: #7b4e23;
+}
+
+.section-shelf{
+  background: var(--bg-soft);
+}
+.section-shelf .section-title{
+  font-size: 34px;
+  letter-spacing: .5px;
+}
+.muted-para{
+  color: var(--muted);
+  margin-top: .25rem;
+}
+
+/* Flash message */
+.accent-alert{
+  background: #fff8f0;
+  border: 1px solid #ffe0bf;
+  color: #70421a;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+/* Filter pills */
+.shelf-filter{
+  display:flex; flex-wrap:wrap; gap:10px;
+}
+.filter-pill{
+  display:inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  text-decoration:none;
+  font-size: 14px;
+}
+.filter-pill.active{
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 0 0 3px rgba(212,163,115,.15) inset;
+}
+
+/* Empty state */
+.empty-wrap{ display:flex; justify-content:center; }
+.empty-card{
+  text-align:center; background:#fff; border:1px solid var(--line);
+  border-radius: 16px; padding: 28px 24px; max-width: 560px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.04);
+}
+.empty-illus{ font-size:42px; margin-bottom:10px; }
+
+/* Grid */
+.shelf-grid{
+  display:grid;
+  grid-template-columns: repeat( auto-fill, minmax(220px, 1fr) );
+  gap: 22px;
+}
+.book-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  display:flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0,0,0,.04);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.book-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+}
+.book-card .thumb{
+  display:block; aspect-ratio: 3/4; background:#f3efe6;
+}
+.book-card img{
+  width: 100%; height: 100%; object-fit: cover; display:block;
+}
+.book-card .meta{
+  padding: 12px 14px 4px;
+}
+.book-card .title{
+  font-size: 18px; line-height: 1.35; margin: 0 0 2px;
+}
+.book-card .title a{ color: var(--ink); text-decoration:none; }
+.book-card .title a:hover{ text-decoration: underline; }
+.book-card .author{
+  font-size: 14px; color: var(--muted);
+}
+.status-line{ margin-top: 8px; }
+
+/* Status badge */
+.badge{
+  display:inline-block; font-size:12px; padding:4px 8px;
+  border-radius:999px; border:1px solid var(--line); background:#fff;
+}
+.status-want_to_read{ border-color:#d6d1c7; color:#6b6358; background:#fbfaf7; }
+.status-reading{ border-color:#b9e2ff; color:#0b5583; background:#eef8ff; }
+.status-finished{ border-color:#cde7c5; color:#2b6b2f; background:#f1fbef; }
+
+/* Actions */
+.actions{
+  display:flex; justify-content: space-between; gap:8px;
+  padding: 10px 12px 14px;
+  margin-top:auto;
+}
+.inline{ display:flex; gap:6px; align-items:center; }
+.status-select{
+  border:1px solid var(--line); border-radius: 8px; padding:6px 8px;
+  background:#fff; font-size: 13px; color: var(--ink);
+}
+
+.btn.tiny{
+  padding: 6px 10px; font-size: 13px;
+  background: var(--accent); border:1px solid var(--accent);
+  color:#fff; border-radius: 8px; cursor:pointer;
+}
+.btn.tiny:hover{ filter: brightness(0.95); }
+
+.btn.tiny.ghost{
+  background:#fff; color: var(--accent-ink);
+  border:1px solid var(--line);
+}
+.btn.tiny.ghost:hover{ border-color: var(--accent); color: var(--accent-ink); }
+<?php
+if (session_status()===PHP_SESSION_NONE) session_start();
+$pageTitle = "Tủ sách của tôi";
+$flash = $_SESSION['flash'] ?? null; unset($_SESSION['flash']);
+
+ob_start(); // bắt đầu gom HTML vào $content
+?>
+
+<section class="section-shelf py-5 my-5">
+  <div class="container">
+    <div class="section-header text-center mb-4">
+      <h2 class="section-title divider">Tủ sách của tôi</h2>
+      <p class="muted-para">Lưu lại những cuốn sách bạn yêu thích để đọc sau.</p>
+    </div>
+
+    <?php if (!empty($flash)): ?>
+      <div class="alert accent-alert"><?= htmlspecialchars($flash) ?></div>
+    <?php endif; ?>
+
+    <div class="shelf-filter mb-4">
+      <a class="filter-pill <?= empty($_GET['status']) ? 'active' : '' ?>" href="<?= BASE_URL ?>/?controller=shelf&action=index">Tất cả</a>
+      <a class="filter-pill <?= (($_GET['status'] ?? '')==='want_to_read') ? 'active' : '' ?>" href="<?= BASE_URL ?>/?controller=shelf&action=index&status=want_to_read">Muốn đọc</a>
+      <a class="filter-pill <?= (($_GET['status'] ?? '')==='reading') ? 'active' : '' ?>" href="<?= BASE_URL ?>/?controller=shelf&action=index&status=reading">Đang đọc</a>
+      <a class="filter-pill <?= (($_GET['status'] ?? '')==='finished') ? 'active' : '' ?>" href="<?= BASE_URL ?>/?controller=shelf&action=index&status=finished">Đã đọc</a>
+    </div>
+
+    <?php if (empty($items)): ?>
+      <div class="empty-wrap">
+        <div class="empty-card">
+          <div class="empty-illus">📚</div>
+          <h3>Chưa có sách nào trong tủ</h3>
+          <p class="muted-para">Khám phá các đầu sách ở trang chủ và thêm vào tủ để theo dõi.</p>
+          <a class="btn btn-outline-accent btn-accent-arrow" href="<?= BASE_URL ?>/">
+            Về trang chủ <i class="icon icon-ns-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    <?php else: ?>
+      <div class="shelf-grid">
+        <?php foreach ($items as $it): ?>
+          <article class="book-card">
+            <a class="thumb" href="<?= BASE_URL ?>/?controller=book&action=show&id=<?= (int)$it['book_id'] ?>">
+              <img src="<?= htmlspecialchars($it['cover_image'] ?? '') ?>" alt="" loading="lazy">
+            </a>
+            <div class="meta">
+              <h3 class="title">
+                <a href="<?= BASE_URL ?>/?controller=book&action=show&id=<?= (int)$it['book_id'] ?>">
+                  <?= htmlspecialchars($it['title']) ?>
+                </a>
+              </h3>
+              <div class="author">by <?= htmlspecialchars($it['author']) ?></div>
+              <div class="status-line">
+                <span class="badge status-<?= htmlspecialchars($it['status']) ?>">
+                  <?= $it['status']==='want_to_read'?'Muốn đọc':($it['status']==='reading'?'Đang đọc':'Đã đọc') ?>
+                </span>
+              </div>
+            </div>
+
+            <div class="actions">
+              <form action="<?= BASE_URL ?>/?controller=shelf&action=updateStatus" method="POST" class="inline">
+                <input type="hidden" name="book_id" value="<?= (int)$it['book_id'] ?>">
+                <select name="status" class="status-select">
+                  <option value="want_to_read" <?= $it['status']==='want_to_read'?'selected':''; ?>>Muốn đọc</option>
+                  <option value="reading"      <?= $it['status']==='reading'?'selected':''; ?>>Đang đọc</option>
+                  <option value="finished"     <?= $it['status']==='finished'?'selected':''; ?>>Đã đọc</option>
+                </select>
+                <button type="submit" class="btn tiny">Lưu</button>
+              </form>
+
+              <form action="<?= BASE_URL ?>/?controller=shelf&action=remove" method="POST" class="inline">
+                <input type="hidden" name="book_id" value="<?= (int)$it['book_id'] ?>">
+                <button type="submit" class="btn tiny ghost">Xoá</button>
+              </form>
+            </div>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+  </div>
+</section>
+
+<?php
+$content = ob_get_clean();                         // lấy HTML vào $content
+require_once __DIR__ . '/../layouts/app.php';      // nạp layout (kéo CSS/JS)
