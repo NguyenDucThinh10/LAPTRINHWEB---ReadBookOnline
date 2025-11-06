@@ -1,350 +1,281 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biểu mẫu Đăng nhập và Đăng ký</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biểu mẫu Đăng nhập và Đăng ký</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-    <div class="wrapper">
-        <span class="rotate-bg"></span>
-        <span class="rotate-bg2"></span>
+  <div class="wrapper">
+    <span class="rotate-bg"></span>
+    <span class="rotate-bg2"></span>
 
-        <!-- Form Đăng Nhập php -S localhost:8080 -t public -->
-        <div class="form-box login">
-            <h2 class="title animation" style="--i:0; --j:21">Đăng Nhập</h2>
-            <form method="POST" action="/auth/login">
-                <div class="input-box animation" style="--i:1; --j:22">
-                    <input type="text" name="username" value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
-                    <label for="">Tên đăng nhập</label>
-                    <i class='bx bxs-user'></i>
-                </div>
-
-                <div class="input-box animation" style="--i:2; --j:23">
-                    <input type="password" name="password" required>
-                    <label for="">Mật khẩu</label>
-                    <i class='bx bxs-lock-alt'></i>
-                </div>
-                <button type="submit" class="btn animation" style="--i:3; --j:24">Đăng Nhập</button>
-                <div class="linkTxt animation" style="--i:5; --j:25">
-                    <p>Chưa có tài khoản? <a href="#" class="register-link">Đăng ký</a></p>
-                </div>
-            </form>
+    <!-- Form Đăng Nhập php -S localhost:8080 -t public -->
+    <div class="form-box login">
+      <h2 class="title animation" style="--i:0; --j:21">Đăng Nhập</h2>
+      <form method="POST" action="/auth/login">
+        <div class="input-box animation" style="--i:1; --j:22">
+          <input type="text" name="username"
+            value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
+          <label for="">Tên đăng nhập</label>
+          <i class='bx bxs-user'></i>
         </div>
 
-        <!-- Thông báo Đăng Nhập -->
-        <div class="info-text login">
-            <h2 class="animation" style="--i:0; --j:20">Chào mừng đến với sách điện tử!</h2>
-            <p class="animation" style="--i:1; --j:21">Nâng tầm tri thức.</p>
+        <div class="input-box animation" style="--i:2; --j:23">
+          <input type="password" name="password" required>
+          <label for="">Mật khẩu</label>
+          <i class='bx bxs-lock-alt'></i>
         </div>
-
-        <!-- Form Đăng Ký -->
-        <div class="form-box register">
-            <h2 class="title animation" style="--i:17; --j:0">Đăng Ký</h2>
-            <form method="POST" action="/auth/signup">
-                <div class="input-box animation" style="--i:18; --j:1">
-                    <input type="text" name="username" value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
-                    <label for="">Tên đăng nhập</label>
-                    <i class='bx bxs-user'></i>
-                </div>
-
-                <div class="input-box animation" style="--i:19; --j:2">
-                    <input type="email" name="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
-                    <label for="">Email</label>
-                    <i class='bx bxs-envelope'></i>
-                </div>
-
-                <div class="input-box animation" style="--i:20; --j:3">
-                    <input type="password" name="password" required>
-                    <label for="">Mật khẩu</label>
-                    <i class='bx bxs-lock-alt'></i>
-                </div>
-
-                <button type="submit" class="btn animation" style="--i:21; --j:4">Đăng Ký</button>
-
-                <div class="linkTxt animation" style="--i:22; --j:5">
-                    <p>Đã có tài khoản? <a href="#" class="login-link">Đăng nhập</a></p>
-                </div>
-            </form>
+        <button type="submit" class="btn animation" style="--i:3; --j:24">Đăng Nhập</button>
+        <div class="linkTxt animation" style="--i:5; --j:25">
+          <p>Chưa có tài khoản? <a href="#" class="register-link">Đăng ký</a></p>
         </div>
-
-        <!-- Thông báo Đăng Ký -->
-         <?php if (isset($error)): ?>
-            <p style="color:red; text-align:center;"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
-
-        <div class="info-text register">
-            <h2 class="animation" style="--i:17; --j:0;">Chào mừng trở lại!</h2>
-            <p class="animation" style="--i:18; --j:1;">Đăng ký để bước vào thế giới sách mới mẻ.</p>
-        </div>
-
+      </form>
     </div>
 
-    <script>
-        const wrapper = document.querySelector('.wrapper');
-        const registerLink = document.querySelector('.register-link');
-        const loginLink = document.querySelector('.login-link');
+    <!-- Thông báo Đăng Nhập -->
+    <div class="info-text login">
+      <h2 class="animation" style="--i:0; --j:20">Chào mừng đến với sách điện tử!</h2>
+      <p class="animation" style="--i:1; --j:21">Nâng tầm tri thức.</p>
+    </div>
 
-        registerLink.onclick = () => {
-            wrapper.classList.add('active');
-        };
+    <!-- Form Đăng Ký -->
+    <div class="form-box register">
+      <h2 class="title animation" style="--i:17; --j:0">Đăng Ký</h2>
+      <form method="POST" action="/auth/signup">
+        <div class="input-box animation" style="--i:18; --j:1">
+          <input type="text" name="username"
+            value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
+          <label for="">Tên đăng nhập</label>
+          <i class='bx bxs-user'></i>
+        </div>
 
-        loginLink.onclick = () => {
-            wrapper.classList.remove('active');
-        };
-    </script>
+        <div class="input-box animation" style="--i:19; --j:2">
+          <input type="email" name="email"
+            value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+          <label for="">Email</label>
+          <i class='bx bxs-envelope'></i>
+        </div>
+
+        <div class="input-box animation" style="--i:20; --j:3">
+          <input type="password" name="password" required>
+          <label for="">Mật khẩu</label>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+
+        <button type="submit" class="btn animation" style="--i:21; --j:4">Đăng Ký</button>
+
+        <div class="linkTxt animation" style="--i:22; --j:5">
+          <p>Đã có tài khoản? <a href="#" class="login-link">Đăng nhập</a></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Thông báo Đăng Ký -->
+    <?php if (isset($error)): ?>
+    <p style="color:red; text-align:center;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
+
+    <div class="info-text register">
+      <h2 class="animation" style="--i:17; --j:0;">Chào mừng trở lại!</h2>
+      <p class="animation" style="--i:18; --j:1;">Đăng ký để bước vào thế giới sách mới mẻ.</p>
+    </div>
+
+  </div>
+
+  <script>
+  const wrapper = document.querySelector('.wrapper');
+  const registerLink = document.querySelector('.register-link');
+  const loginLink = document.querySelector('.login-link');
+
+  registerLink.onclick = () => {
+    wrapper.classList.add('active');
+  };
+
+  loginLink.onclick = () => {
+    wrapper.classList.remove('active');
+  };
+  </script>
 </body>
 
 </html>
-    <!--Script.js-->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+<!--Script.js-->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-:root{
-    --white: #fff;
-    --black: #000; 
-    --lightBulue: #17a;
+:root {
+  --white: #fff;
+  --black: #000;
+  --lightBulue: #17a;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.wrapper{
-    position: relative;
-    width: 750px;
-    height: 450px;
-    background: var(--white);
-    border: 2px solid var(--black);
-    border-radius: 10px;
-    box-shadow: 0 0 20px var(--black);
-    overflow: hidden;
+.wrapper {
+  position: relative;
+  width: 750px;
+  height: 450px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 10px;
+  box-shadow: 0 0 20px var(--black);
+  overflow: hidden;
 }
 
 
-.wrapper .form-box{
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+.wrapper .form-box {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.wrapper .form-box.login{
-    left: 0;
-    padding: 0 60px 0 40px;
+.wrapper .form-box.login {
+  left: 0;
+  padding: 0 60px 0 40px;
 }
 
-.form-box h2{
-    margin-bottom: 10px;
-    position: relative;
-    font-size: 32px;
-    color: var(--black);
-    text-align: center;
+.form-box h2 {
+  margin-bottom: 10px;
+  position: relative;
+  font-size: 32px;
+  color: var(--black);
+  text-align: center;
 }
 
-.form-box h2::after{
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 4px;
-    background: var(--black);
+.form-box h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: var(--black);
 }
 
-.form-box .input-box{
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 25px 0;
+.form-box .input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 25px 0;
 }
 
-.input-box input{
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    color: var(--black);
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    outline: none;
-    border-bottom: 2px solid var(--black);
-    transition: .5s;
-    padding-right: 23px;
+.input-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: var(--black);
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid var(--black);
+  transition: .5s;
+  padding-right: 23px;
 }
 
 .input-box input:focus,
-.input-box input:valid{
-    border-bottom-color: var(--lightBulue);
+.input-box input:valid {
+  border-bottom-color: var(--lightBulue);
 }
 
-.input-box label{
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: var(--black);
-    pointer-events: none;
-    transition: 0.5s;
+.input-box label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--black);
+  pointer-events: none;
+  transition: 0.5s;
 }
 
 
 .input-box input:focus~label,
-.input-box input:valid~label{
-    top: -5px;
-    color: var(--lightBulue);
+.input-box input:valid~label {
+  top: -5px;
+  color: var(--lightBulue);
 }
 
 
-.input-box i{
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-size: 18px;
-    transition: 0.5s;
+.input-box i {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 18px;
+  transition: 0.5s;
 }
 
 .input-box input:focus~i,
-.input-box input:valid~i{
-    color: var(--lightBulue);
+.input-box input:valid~i {
+  color: var(--lightBulue);
 }
 
-form button{
-    width: 100%;
-    height: 45px;
-    background-color: var(--black);
-    color: var(--white);
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: .3s;
+form button {
+  width: 100%;
+  height: 45px;
+  background-color: var(--black);
+  color: var(--white);
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: .3s;
 }
 
-form button:hover{
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+form button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
-form .linkTxt{
-    font-size: 14px;
-    color: var(--black);
-    text-align: center;
-    margin: 20px 0 10px;
+form .linkTxt {
+  font-size: 14px;
+  color: var(--black);
+  text-align: center;
+  margin: 20px 0 10px;
 }
 
-.linkTxt p a{
-    color: blue;
-    text-decoration: none;
-    font-weight: 600;
+.linkTxt p a {
+  color: blue;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.wrapper .form-box.login .animation{
-    transform: translateX(0);
-    transition: 0.7s ease;
-    opacity: 1;
-    filter: blur(0);
-    transition-delay: calc(.1s * var(--j));
-}
-
-
-.wrapper.active .form-box.login .animation{
-    transform: translateX(-120%);
-    opacity: 0;
-    filter: blur(10px);
-    transition-delay: calc(.1s * var(--i));
+.wrapper .form-box.login .animation {
+  transform: translateX(0);
+  transition: 0.7s ease;
+  opacity: 1;
+  filter: blur(0);
+  transition-delay: calc(.1s * var(--j));
 }
 
 
-
-
-
-
-.wrapper .info-text{
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.wrapper .info-text.login{
-    right: 0;
-    text-align: right;
-    padding: 0 40px 60px 150px;
-
-}
-
-.wrapper .info-text h2{
-    font-size: 36px;
-    color: var(--white);
-    line-height: 1.3;
-    text-transform: uppercase;
-}
-
-.wrapper .info-text p{
-    font-size: 16px;
-    color: var(--white);
-}
-
-
-.wrapper .info-text.login .animation{
-    transform: translateX(0);
-    opacity: 1;
-    filter: blur(0);
-    transition: 0.7s ease;
-    transition-delay: calc(.1s * var(--j));
-}
-.wrapper.active .info-text.login .animation{
-    transform: translateX(120px);
-    opacity: 0;
-    filter: blur(10px);
-    transition: 0.7s ease;
-    transition-delay: calc(.1s * var(--i));
-}
-
-
-
-
-
-.wrapper .rotate-bg{
-    position: absolute;
-    top: -4px;
-    right: 0;
-    width: 850px;
-    height: 600px;
-    background: #000;
-    transform: rotate(10deg) skewY(40deg);
-    transform-origin: bottom right;
-    transition: 1.5s ease;
-    transition-delay: 1.6s;
-}
-
-.wrapper.active .rotate-bg{
-    transform: rotate(0) skewY(0);
-    transition-delay: 0.5s;
+.wrapper.active .form-box.login .animation {
+  transform: translateX(-120%);
+  opacity: 0;
+  filter: blur(10px);
+  transition-delay: calc(.1s * var(--i));
 }
 
 
@@ -352,123 +283,195 @@ form .linkTxt{
 
 
 
-
-
-
-
-
-.wrapper .form-box.register{
-    padding: 0 40px 0 60px;
-    right: 0;
+.wrapper .info-text {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.wrapper.active .form-box.register{
-    pointer-events: auto;
+.wrapper .info-text.login {
+  right: 0;
+  text-align: right;
+  padding: 0 40px 60px 150px;
+
 }
 
-
-.wrapper .form-box.register .animation{
-    transform: translateX(120%);
-    opacity: 0;
-    filter: blur(10px);
-    transition: .7s ease;
-    transition-delay: calc(.1s * var(--j));
+.wrapper .info-text h2 {
+  font-size: 36px;
+  color: var(--white);
+  line-height: 1.3;
+  text-transform: uppercase;
 }
 
-.wrapper.active .form-box.register .animation{
-    transform: translateX(0);
-    opacity: 1;
-    filter: blur(0);
-    transition-delay: calc(.1s * var(--i));
-}
-
-
-
-.wrapper .info-text.register{
-    left: 0;
-    text-align: left;
-    padding: 0 150px 60px 40px;
-    pointer-events: none;
-}
-
-.wrapper.active .info-text.register{
-    pointer-events: auto;
+.wrapper .info-text p {
+  font-size: 16px;
+  color: var(--white);
 }
 
 
-.wrapper .info-text.register .animation{
-    transform: translateX(-120%);
-    opacity: 0;
-    filter: blur(10px);
-    transition: .7s ease;
-    transition-delay: calc(.1s * var(--j));
+.wrapper .info-text.login .animation {
+  transform: translateX(0);
+  opacity: 1;
+  filter: blur(0);
+  transition: 0.7s ease;
+  transition-delay: calc(.1s * var(--j));
 }
 
-.wrapper.active .info-text.register .animation{
-    transform: translateX(0);
-    opacity: 1;
-    filter: blur(0);
-    transition-delay: calc(.1s * var(--i));
+.wrapper.active .info-text.login .animation {
+  transform: translateX(120px);
+  opacity: 0;
+  filter: blur(10px);
+  transition: 0.7s ease;
+  transition-delay: calc(.1s * var(--i));
 }
 
 
 
 
-.wrapper .rotate-bg2{
-    position: absolute;
-    top: 100%;
-    left: 250px;
-    width: 850px;
-    height: 700px;
-    background: var(--white);
-    transform: rotate(0) skewY(0);
-    transform-origin: bottom left;
-    transition: 1.5s ease;
-    transition-delay: 0.5s;
+
+.wrapper .rotate-bg {
+  position: absolute;
+  top: -4px;
+  right: 0;
+  width: 850px;
+  height: 600px;
+  background: #000;
+  transform: rotate(10deg) skewY(40deg);
+  transform-origin: bottom right;
+  transition: 1.5s ease;
+  transition-delay: 1.6s;
 }
 
-.wrapper.active .rotate-bg2{
-    transform: rotate(-11deg) skewY(-40deg);
-    transition-delay: 1.2s;
+.wrapper.active .rotate-bg {
+  transform: rotate(0) skewY(0);
+  transition-delay: 0.5s;
 }
-    </style>
-     
-     <script>
-        const wrapper = document.querySelector('.wrapper')
-        const registerLink = document.querySelector('.register-link')
-        const loginLink = document.querySelector('.login-link')
 
-        registerLink.onclick = () => {
-            wrapper.classList.add('active')
-        }
 
-        loginLink.onclick = () => {
-            wrapper.classList.remove('active')
-        }
-     </script>
 
-     <script>
-        const wrapper = document.querySelector('.wrapper');
-        const registerLink = document.querySelector('.register-link');
-        const loginLink = document.querySelector('.login-link');
 
-        registerLink.onclick = () => {
-            wrapper.classList.add('active');
-        };
 
-        loginLink.onclick = () => {
-            wrapper.classList.remove('active');
-        };
-        
-        // ✅ Tự động mở form đăng ký nếu có lỗi từ signup
-        <?php if (isset($showRegisterForm) && $showRegisterForm): ?>
-            wrapper.classList.add('active');
-        <?php endif; ?>
-    </script>
+
+
+
+
+
+
+.wrapper .form-box.register {
+  padding: 0 40px 0 60px;
+  right: 0;
+}
+
+.wrapper.active .form-box.register {
+  pointer-events: auto;
+}
+
+
+.wrapper .form-box.register .animation {
+  transform: translateX(120%);
+  opacity: 0;
+  filter: blur(10px);
+  transition: .7s ease;
+  transition-delay: calc(.1s * var(--j));
+}
+
+.wrapper.active .form-box.register .animation {
+  transform: translateX(0);
+  opacity: 1;
+  filter: blur(0);
+  transition-delay: calc(.1s * var(--i));
+}
+
+
+
+.wrapper .info-text.register {
+  left: 0;
+  text-align: left;
+  padding: 0 150px 60px 40px;
+  pointer-events: none;
+}
+
+.wrapper.active .info-text.register {
+  pointer-events: auto;
+}
+
+
+.wrapper .info-text.register .animation {
+  transform: translateX(-120%);
+  opacity: 0;
+  filter: blur(10px);
+  transition: .7s ease;
+  transition-delay: calc(.1s * var(--j));
+}
+
+.wrapper.active .info-text.register .animation {
+  transform: translateX(0);
+  opacity: 1;
+  filter: blur(0);
+  transition-delay: calc(.1s * var(--i));
+}
+
+
+
+
+.wrapper .rotate-bg2 {
+  position: absolute;
+  top: 100%;
+  left: 250px;
+  width: 850px;
+  height: 700px;
+  background: var(--white);
+  transform: rotate(0) skewY(0);
+  transform-origin: bottom left;
+  transition: 1.5s ease;
+  transition-delay: 0.5s;
+}
+
+.wrapper.active .rotate-bg2 {
+  transform: rotate(-11deg) skewY(-40deg);
+  transition-delay: 1.2s;
+}
+</style>
+
+<script>
+const wrapper = document.querySelector('.wrapper')
+const registerLink = document.querySelector('.register-link')
+const loginLink = document.querySelector('.login-link')
+
+registerLink.onclick = () => {
+  wrapper.classList.add('active')
+}
+
+loginLink.onclick = () => {
+  wrapper.classList.remove('active')
+}
+</script>
+
+<script>
+const wrapper = document.querySelector('.wrapper');
+const registerLink = document.querySelector('.register-link');
+const loginLink = document.querySelector('.login-link');
+
+registerLink.onclick = () => {
+  wrapper.classList.add('active');
+};
+
+loginLink.onclick = () => {
+  wrapper.classList.remove('active');
+};
+
+// ✅ Tự động mở form đăng ký nếu có lỗi từ signup
+<?php if (isset($showRegisterForm) && $showRegisterForm): ?>
+wrapper.classList.add('active');
+<?php endif; ?>
+</script>
 
 
 
 </body>
 
-</html> 
-
+</html>

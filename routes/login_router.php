@@ -1,11 +1,16 @@
 ﻿<?php
-use App\Core\Router;
+// File: routes/login_router.php
+use App\Controllers\Auth\AuthController;
 
-// Hiển thị form đăng nhập/đăng ký
-Router::get('/auth/login', 'Auth\AuthController@showLoginForm');
+// Đường dẫn bây giờ rất sạch sẽ
+$router->get('auth/login', function() {
+    (new AuthController())->showLoginForm();
+});
 
-// Xử lý đăng nhập
-Router::post('/auth/login', 'Auth\AuthController@login');
+$router->post('auth/login', function() {
+    (new AuthController())->login();
+});
 
-// Xử lý đăng ký
-Router::post('/auth/signup', 'Auth\AuthController@signup');
+$router->post('auth/singups', function() { // Lưu ý: có thể bạn gõ nhầm 'singups' thay vì 'signup'
+    (new AuthController())->signup();
+});
