@@ -51,7 +51,7 @@
           </div>
           <div class="col-md-6">
             <div class="right-element">
-              <a href="#" class="user-account for-buy"><i class="icon icon-user"></i><span>Account</span></a>
+              <a href="/auth/login" class="user-account for-buy"><i class="icon icon-user"></i><span>Account</span></a>
               <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(0
                   $)</span></a>
 

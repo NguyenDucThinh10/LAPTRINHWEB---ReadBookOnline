@@ -1,19 +1,20 @@
 <?php
 namespace App\Controllers;
 
+use App\Core\Controller; // <-- Thêm dòng này
 use App\Core\Database;
 use App\Models\Book;
 
-class HomeController {
-    
+class HomeController extends Controller // <-- Kế thừa từ Controller
+{ 
     public function index() {
-        // CÁCH KẾT NỐI MỚI - GỌN HƠN VÀ HIỆU QUẢ HƠN
         $db = Database::getConnection();
-
-        // Phần còn lại giữ nguyên
         $bookModel = new Book($db);
         $books = $bookModel->getAllBooks();
 
-        require_once ROOT_PATH . '/app/Views/home.php';
+        // Sử dụng $this->view() để truyền dữ liệu một cách tường minh
+        return $this->view('home', [
+            'books' => $books
+        ]);
     }
 }

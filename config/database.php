@@ -3,8 +3,8 @@
 
 return [
     'host' => 'localhost',
-    'dbname' => 'OnlineLibrary',
-    'user' => 'root',        // Đổi tên 'username' thành 'user' cho nhất quán với code của bạn
-    'password' => '',            // NHẬP MẬT KHẨU NẾU CÓ
+    'dbname' => 'onlinelibrary',
+    'username' => 'root',        // Đổi tên 'username' thành 'user' cho nhất quán với code của bạn
+    'password' => '12312312',            // NHẬP MẬT KHẨU NẾU CÓ
     'charset' => 'utf8mb4'       // Giữ lại charset, rất tốt
 ];

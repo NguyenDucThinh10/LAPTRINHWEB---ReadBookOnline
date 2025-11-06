@@ -1,40 +1,54 @@
 <?php
+// File: app/Core/Router.php
 namespace App\Core;
 
 class Router
 {
-    private $routes = [];
+    protected static $routes = [
+        'GET' => [],
+        'POST' => []
+    ];
 
-    public function get($path, $callback)
+    public static function get($uri, $action)
     {
-        $this->routes['GET'][$path] = $callback;
+        self::$routes['GET'][$uri] = $action;
     }
 
-    public function post($path, $callback)
+    public static function post($uri, $action)
     {
-        $this->routes['POST'][$path] = $callback;
+        self::$routes['POST'][$uri] = $action;
     }
 
-    public function run()
+    public static function dispatch($uri, $method)
     {
-        $method = $_SERVER['REQUEST_METHOD'];
-        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-        if (isset($this->routes[$method][$path])) {
-            $callback = $this->routes[$method][$path];
-
-            if (is_callable($callback)) {
-                // ✅ Thêm dòng này: in ra nội dung được return từ Controller
-                $result = call_user_func($callback);
-                if (is_string($result)) {
-                    echo $result;
-                }
-            } else {
-                echo "Route found, but callback is not callable.";
-            }
-        } else {
-            http_response_code(404);
-            echo "404 - Page Not Found";
+        // Loại bỏ query string (ví dụ: ?param=1) khỏi URI
+        if (false !== $pos = strpos($uri, '?')) {
+            $uri = substr($uri, 0, $pos);
         }
+        $uri = rawurldecode($uri);
+
+        if (isset(self::$routes[$method][$uri])) {
+            $action = self::$routes[$method][$uri];
+
+            // Tách controller và method từ chuỗi 'Controller@method'
+            list($controller, $methodName) = explode('@', $action);
+            
+            // Xây dựng tên class đầy đủ
+            $controllerClassName = 'App\\Controllers\\' . $controller;
+
+            if (class_exists($controllerClassName)) {
+                $controllerInstance = new $controllerClassName();
+
+                if (method_exists($controllerInstance, $methodName)) {
+                    $controllerInstance->$methodName();
+                    return;
+                }
+            }
+        }
+
+        // Nếu không tìm thấy route
+        http_response_code(404);
+        echo "404 Not Found - Trang bạn tìm không tồn tại.";
+        exit;
     }
 }
