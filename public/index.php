@@ -1,89 +1,71 @@
-﻿<?php
+<?php
 // File: public/index.php
 
 /**
  * --------------------------------------------------------------------------
  * PHẦN 1: KHỞI TẠO VÀ CẤU HÌNH CƠ BẢN
  * --------------------------------------------------------------------------
- * Đây là nơi chúng ta thiết lập các hằng số và cài đặt quan trọng.
  */
 
-// Bật hiển thị lỗi để dễ dàng gỡ lỗi trong quá trình phát triển
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Định nghĩa ROOT_PATH: Đường dẫn vật lý đến thư mục gốc của dự án (ví dụ: D:/.../LAPTRINHWEB---ReadBookOnline)
-// Cách này luôn luôn đúng, bất kể bạn đặt dự án ở đâu.
 define('ROOT_PATH', dirname(__DIR__));
-
-// Định nghĩa BASE_URL: Tự động tính toán đường dẫn URL đến thư mục public.
-// Cách này sẽ hoạt động dù bạn đặt dự án ở thư mục con nào trong htdocs.
+// Tự động xác định BASE_URL dựa trên server, hoạt động với mọi cổng (80, 8080...)
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
-$host = $_SERVER['HTTP_HOST'];
+$host = $_SERVER['HTTP_HOST']; // HTTP_HOST đã bao gồm cả port, ví dụ: "localhost:8080"
+
+// Tính toán đường dẫn thư mục con nếu có (ví dụ: /folder/public)
 $scriptName = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+// Loại bỏ '/public' khỏi đường dẫn để trỏ về thư mục gốc của URL
+$scriptName = str_replace('/public', '', $scriptName);
 $scriptName = ($scriptName === '/') ? '' : $scriptName;
+
 define('BASE_URL', $protocol . $host . $scriptName);
-
-
 /**
  * --------------------------------------------------------------------------
- * PHẦN 2: AUTOLOADER - CỖ MÁY TỰ ĐỘNG NẠP FILE
+ * PHẦN 2: AUTOLOADER
  * --------------------------------------------------------------------------
- * Phần "ma thuật" này giúp bạn không cần phải require_once các file class nữa.
  */
 
 spl_autoload_register(function ($className) {
-    // Chỉ xử lý các class có namespace bắt đầu bằng "App\"
     $prefix = 'App\\';
     if (strpos($className, $prefix) !== 0) {
         return;
     }
-
-    // Chuyển đổi namespace thành đường dẫn file (ví dụ: App\Controllers\HomeController -> app/Controllers/HomeController.php)
     $relativeClass = substr($className, strlen($prefix));
     $filePath = ROOT_PATH . '/app/' . str_replace('\\', '/', $relativeClass) . '.php';
-
-    // Nạp file nếu nó tồn tại
     if (file_exists($filePath)) {
         require_once $filePath;
     }
 });
 
-
 /**
  * --------------------------------------------------------------------------
- * PHẦN 3: BỘ ĐỊNH TUYẾN (ROUTER) - "NGƯỜI ĐIỀU PHỐI GIAO THÔNG"
+ * PHẦN 3: ĐỊNH TUYẾN (ROUTING)
  * --------------------------------------------------------------------------
- * Đọc URL và quyết định Controller nào, phương thức (action) nào sẽ được gọi.
  */
 
-// Lấy controller từ URL, nếu không có thì mặc định là 'home'
-$controllerName = $_GET['controller'] ?? 'home';
+// Nạp file định nghĩa các routes
+require_once ROOT_PATH . '/routes/web.php';
 
-// Lấy action từ URL, nếu không có thì mặc định là 'index'
-$actionName = $_GET['action'] ?? 'index';
+// Lấy URI từ yêu cầu của người dùng (ví dụ: /auth/login)
+$uri = $_SERVER['REQUEST_URI'];
 
-// Xây dựng tên class đầy đủ (bao gồm cả namespace)
-$controllerClassName = 'App\\Controllers\\' . ucfirst($controllerName) . 'Controller';
+// Lấy phương thức HTTP (GET, POST, ...)
+$method = $_SERVER['REQUEST_METHOD'];
+
+// Bắt đầu phiên làm việc (session) để có thể dùng cho đăng nhập, giỏ hàng...
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 
 /**
  * --------------------------------------------------------------------------
  * PHẦN 4: THỰC THI
  * --------------------------------------------------------------------------
- * Khởi tạo và gọi Controller/Action tương ứng.
  */
 
-if (class_exists($controllerClassName)) {
-    $controllerInstance = new $controllerClassName();
-
-    if (method_exists($controllerInstance, $actionName)) {
-        $controllerInstance->$actionName();
-    } else {
-        http_response_code(404);
-        die("Lỗi 404: Hành động (phương thức) '$actionName' không tồn tại trong controller '$controllerClassName'.");
-    }
-} else {
-    http_response_code(404);
-    die("Lỗi 404: Controller '$controllerClassName' không tồn tại. Vui lòng kiểm tra lại tên controller hoặc namespace.");
-}
+// Yêu cầu Router tìm và thực thi controller/action tương ứng
+App\Core\Router::dispatch($uri, $method);
