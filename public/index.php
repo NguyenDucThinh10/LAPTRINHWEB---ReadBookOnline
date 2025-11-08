@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿﻿<?php
+=======
+<?php
+>>>>>>> 2e275f8461aec48d60dfe1a7d93892a260d4fbef
 // File: public/index.php
 
 /**
