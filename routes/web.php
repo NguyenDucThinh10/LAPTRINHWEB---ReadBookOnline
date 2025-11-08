@@ -50,3 +50,6 @@ Router::get('/author/books/create', 'Author\BookController@create');
 // Route xử lý việc nộp form "Thêm sách mới" (đã tạo)
 Router::post('/author/books/store', 'Author\BookController@store');
 
+// (Thêm các route khác của bạn ở đây)
+Router::get('/book/detail', 'BookController@detail');
+Router::get('/book/show', 'BookController@show');

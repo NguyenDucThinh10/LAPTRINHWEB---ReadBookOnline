@@ -2,6 +2,7 @@
 // config/database.php
 
 return [
+
     'host' => 'localhost',
     'dbname' => 'onlinelibrary',
     'username' => 'root',        // Đổi tên 'username' thành 'user' cho nhất quán với code của bạn
