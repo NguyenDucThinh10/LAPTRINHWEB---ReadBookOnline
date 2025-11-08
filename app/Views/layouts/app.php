@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>BookSaw - Free Book Store HTML CSS Template</title>
+  <title>BookSaw </title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +51,7 @@
           </div>
           <div class="col-md-6">
             <div class="right-element">
-              <a href="/auth/login" class="user-account for-buy"><i class="icon icon-user"></i><span>Account</span></a>
+              <a href="/account" class="user-account for-buy"><i class="icon icon-user"></i><span>Account</span></a>
               <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(0
                   $)</span></a>
 
