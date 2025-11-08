@@ -19,9 +19,11 @@ ob_start();
           <div class="slider-item">
             <div class="banner-content">
               <h2 class="banner-title">Life of the Wild</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet, libero
-                ipsum enim pharetra hac. Urna commodo, lacus ut magna velit eleifend. Amet, quis
-                urna, a eu.</p>
+              <p>“Đọc sách là một công cụ nền tảng để sống một cuộc đời tốt đẹp. Thông qua sách, chúng ta có thể học hỏi
+                từ trải nghiệm của người khác, làm giàu thêm sự hiểu biết về thế giới và nuôi dưỡng thói quen suy ngẫm
+                cùng sự thấu suốt. Một cuốn sách hay không chỉ đơn thuần cung cấp thông tin; nó còn mời người đọc bước
+                vào một cuộc đối thoại – cuộc đối thoại ấy vẫn tiếp tục định hình tư duy của ta rất lâu sau khi trang
+                cuối cùng đã được lật qua.”</p>
               <div class="btn-wrap">
                 <a href="#" class="btn btn-outline-accent btn-accent-arrow">Read More<i
                     class="icon icon-ns-arrow-right"></i></a>
@@ -31,7 +33,6 @@ ob_start();
             <img src="images/main-banner1.jpg" alt="banner" class="banner-image">
           </div>
           <!--slider-item-->
-
           <div class="slider-item">
             <div class="banner-content">
               <h2 class="banner-title">Birds gonna be Happy</h2>
@@ -89,9 +90,9 @@ ob_start();
 
         <div class="section-header align-center">
           <div class="title">
-            <span>Some quality items</span>
+            <span>Kho sách</span>
           </div>
-          <h2 class="section-title">Featured Books</h2>
+          <h2 class="section-title">Sách nổi bật</h2>
         </div>
 
         <div class="product-list" data-aos="fade-up">
