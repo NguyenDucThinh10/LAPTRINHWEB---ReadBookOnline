@@ -85,3 +85,25 @@ CREATE TABLE Chapters (
     -- Đảm bảo mỗi sách không thể có 2 chương trùng số thứ tự
     CONSTRAINT uq_book_chapter UNIQUE (book_id, chapter_number)
 );
+
+CREATE TABLE AuthorRequests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    author_name VARCHAR(255) NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    -- Liên kết tới bảng Users
+    CONSTRAINT fk_request_user
+        FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        ON DELETE CASCADE,
+        
+    -- Đảm bảo mỗi user chỉ có 1 yêu cầu 'pending' tại một thời điểm
+    -- (Chúng ta sẽ xử lý logic này trong code, nhưng UNIQUE ở đây 
+    --  để ngăn 1 user gửi nhiều yêu cầu)
+    CONSTRAINT uq_user_id UNIQUE (user_id)
+);
+
+ALTER TABLE Users
+ADD COLUMN author_name VARCHAR(255) NULL DEFAULT NULL AFTER email;
