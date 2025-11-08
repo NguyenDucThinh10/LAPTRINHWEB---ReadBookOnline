@@ -6,7 +6,9 @@ use App\Core\Router;
 // ===============================
 
 // Hiển thị danh sách tủ sách của người dùng
-Router::get('/shelf', 'ShelfController@index');
+Router::get('/shelf',       'ShelfController@index');
+Router::get('/shelf/',      'ShelfController@index');
+Router::get('/shelf/index', 'ShelfController@index');
 
 // Thêm sách vào tủ
 Router::post('/shelf/add', 'ShelfController@add');

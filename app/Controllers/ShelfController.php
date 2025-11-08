@@ -11,13 +11,15 @@ class ShelfController {
             session_start();
         }
 
-        // ✅ FAKE LOGIN TẠM (xóa khối này khi nhóm login xong)
-        if (empty($_SESSION['user'])) {
-            $_SESSION['user'] = [
-                'user_id'  => 1,           // đổi nếu bạn muốn test bằng user khác
-                'username' => 'demo_user'
-            ];
-        }
+      // ✅ FAKE LOGIN TẠM (xóa khối này khi nhóm login xong)
+if (empty($_SESSION['user'])) {
+    $_SESSION['user'] = [
+        'user_id'  => 1,
+        'username' => 'demo_user'
+    ];
+}
+
+
 
         $this->shelf = new ShelfItem();
     }
@@ -29,7 +31,8 @@ class ShelfController {
         }
 
         if (empty($_SESSION['user'])) {
-            $this->redirect(BASE_URL . '/?controller=auth&action=login', 'Bạn cần đăng nhập để thêm sách vào tủ.');
+           $this->redirect('/auth/login', 'Bạn cần đăng nhập để thêm sách vào tủ.');
+
         }
 
         $userId = (int) ($_SESSION['user']['user_id'] ?? 0);
@@ -96,20 +99,21 @@ class ShelfController {
 
     // ===== Helpers =====
     private function back(string $msg): void {
-        $_SESSION['flash'] = $msg;
-        $fallback = BASE_URL . '/?controller=shelf&action=index';
-        $goto = $_SERVER['HTTP_REFERER'] ?? $fallback;
-        header('Location: ' . $goto);
-        exit;
-    }
+    $_SESSION['flash'] = $msg;
+    $fallback = BASE_URL . '/shelf'; // ✅ Router mới dùng clean URL
+    $goto = $_SERVER['HTTP_REFERER'] ?? $fallback;
+    header('Location: ' . $goto);
+    exit;
+}
 
-    private function redirect(string $path, string $msg): void {
-        $_SESSION['flash'] = $msg;
-        // Nếu $path không phải absolute URL, gắn BASE_URL để đi qua router
-        if (strpos($path, 'http://') !== 0 && strpos($path, 'https://') !== 0) {
-            $path = BASE_URL . $path; // ví dụ '/?controller=auth&action=login'
-        }
-        header('Location: ' . $path);
-        exit;
+private function redirect(string $path, string $msg): void {
+    $_SESSION['flash'] = $msg;
+    // ✅ Nếu $path là path tương đối, gắn BASE_URL
+    if (strpos($path, 'http://') !== 0 && strpos($path, 'https://') !== 0) {
+        $path = BASE_URL . $path;
     }
+    header('Location: ' . $path);
+    exit;
+}
+
 }

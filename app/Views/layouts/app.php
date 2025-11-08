@@ -12,14 +12,17 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   <meta name="description" content="">
+    <!-- ĐẶT GỐC CHO TÀI NGUYÊN TĨNH: trỏ về /public -->
+  <base href="<?= BASE_URL ?>/public/">
+
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-  <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/icomoon/icomoon.css">
-  <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>/css/vendor.css">
-  <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="icomoon/icomoon.css">
+  <link rel="stylesheet" href="css/vendor.css">
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
     <?php
@@ -92,7 +95,7 @@
 
           <div class="col-md-2">
             <div class="main-logo">
-              <a href="../app/Views/home.php"><img src="<?php echo BASE_URL; ?>/images/main-logo.png" alt="logo"></a>
+              <a href="../app/Views/home.php"><img src="images/main-logo.png" alt="logo"></a>
             </div>
 
           </div>
@@ -123,7 +126,8 @@
                   <li class="menu-item"><a href="#popular-books" class="nav-link">Popular</a></li>
                   <li class="menu-item"><a href="#special-offer" class="nav-link">Offer</a></li>
                   <li class="menu-item"><a href="#latest-blog" class="nav-link">Articles</a></li>
-                  <li class="menu-item"><a href="<?= BASE_URL ?>/?controller=shelf&action=index" class="nav-link">Tủ Sách</a>
+                  <li class="menu-item"><a href="shelf" class="nav-link">Tủ Sách</a>
+
                 </li>
 
                 </ul>
@@ -159,7 +163,7 @@
 
           <div class="footer-item">
             <div class="company-brand">
-              <img src="<?php echo BASE_URL; ?>/images/main-logo.png" alt="logo" class="footer-logo">
+              <img src="images/main-logo.png" class="footer-logo" alt="logo" class="footer-logo">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus
                 nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames
                 semper erat ac in suspendisse iaculis.</p>
@@ -307,9 +311,9 @@
     </div>
   </div>
 
-  <script src="<?php echo BASE_URL; ?>/js/jquery-1.11.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-  </script>
-  <script src="<?php echo BASE_URL; ?>/js/plugins.js"></script>
-  <script src="<?php echo BASE_URL; ?>/js/script.js"></script>
+  <script src="js/jquery-1.11.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+</script>
+<script src="js/plugins.js"></script>
+<script src="js/script.js"></script>

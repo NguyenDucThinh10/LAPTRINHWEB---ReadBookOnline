@@ -18,10 +18,12 @@ ob_start(); // bắt đầu gom HTML vào $content
     <?php endif; ?>
 
     <div class="shelf-filter mb-4">
-      <a class="filter-pill <?= empty($_GET['status']) ? 'active' : '' ?>" href="<?= BASE_URL ?>/?controller=shelf&action=index">Tất cả</a>
-      <a class="filter-pill <?= (($_GET['status'] ?? '')==='want_to_read') ? 'active' : '' ?>" href="<?= BASE_URL ?>/?controller=shelf&action=index&status=want_to_read">Muốn đọc</a>
-      <a class="filter-pill <?= (($_GET['status'] ?? '')==='reading') ? 'active' : '' ?>" href="<?= BASE_URL ?>/?controller=shelf&action=index&status=reading">Đang đọc</a>
-      <a class="filter-pill <?= (($_GET['status'] ?? '')==='finished') ? 'active' : '' ?>" href="<?= BASE_URL ?>/?controller=shelf&action=index&status=finished">Đã đọc</a>
+      <a class="filter-pill <?= empty($_GET['status']) ? 'active' : '' ?>" href="shelf">Tất cả</a>
+<a class="filter-pill <?= (($_GET['status'] ?? '')==='want_to_read') ? 'active' : '' ?>" href="shelf?status=want_to_read">Muốn đọc</a>
+<a class="filter-pill <?= (($_GET['status'] ?? '')==='reading') ? 'active' : '' ?>" href="shelf?status=reading">Đang đọc</a>
+<a class="filter-pill <?= (($_GET['status'] ?? '')==='finished') ? 'active' : '' ?>" href="shelf?status=finished">Đã đọc</a>
+
+
     </div>
 
     <?php if (empty($items)): ?>
@@ -30,21 +32,22 @@ ob_start(); // bắt đầu gom HTML vào $content
           <div class="empty-illus">📚</div>
           <h3>Chưa có sách nào trong tủ</h3>
           <p class="muted-para">Khám phá các đầu sách ở trang chủ và thêm vào tủ để theo dõi.</p>
-          <a class="btn btn-outline-accent btn-accent-arrow" href="<?= BASE_URL ?>/">
-            Về trang chủ <i class="icon icon-ns-arrow-right"></i>
-          </a>
+          <a class="btn btn-outline-accent btn-accent-arrow" href="<?= BASE_URL ?>/public/">
+  Về trang chủ <i class="icon icon-ns-arrow-right"></i>
+</a>
+
         </div>
       </div>
     <?php else: ?>
       <div class="shelf-grid">
         <?php foreach ($items as $it): ?>
           <article class="book-card">
-            <a class="thumb" href="<?= BASE_URL ?>/?controller=book&action=show&id=<?= (int)$it['book_id'] ?>">
+            <a class="thumb" href="book/show?id=<?= (int)$it['book_id'] ?>">
               <img src="<?= htmlspecialchars($it['cover_image'] ?? '') ?>" alt="" loading="lazy">
             </a>
             <div class="meta">
               <h3 class="title">
-                <a href="<?= BASE_URL ?>/?controller=book&action=show&id=<?= (int)$it['book_id'] ?>">
+               <a href="book/show?id=<?= (int)$it['book_id'] ?>">
                   <?= htmlspecialchars($it['title']) ?>
                 </a>
               </h3>
@@ -57,7 +60,8 @@ ob_start(); // bắt đầu gom HTML vào $content
             </div>
 
             <div class="actions">
-              <form action="<?= BASE_URL ?>/?controller=shelf&action=updateStatus" method="POST" class="inline">
+              <form action="shelf/status" method="POST" class="inline">
+
                 <input type="hidden" name="book_id" value="<?= (int)$it['book_id'] ?>">
                 <select name="status" class="status-select">
                   <option value="want_to_read" <?= $it['status']==='want_to_read'?'selected':''; ?>>Muốn đọc</option>
@@ -67,7 +71,8 @@ ob_start(); // bắt đầu gom HTML vào $content
                 <button type="submit" class="btn tiny">Lưu</button>
               </form>
 
-              <form action="<?= BASE_URL ?>/?controller=shelf&action=remove" method="POST" class="inline">
+              <form action="shelf/remove" method="POST" class="inline">
+
                 <input type="hidden" name="book_id" value="<?= (int)$it['book_id'] ?>">
                 <button type="submit" class="btn tiny ghost">Xoá</button>
               </form>

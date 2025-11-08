@@ -5,29 +5,34 @@ use App\Core\Database;
 use App\Models\Book;
 use App\Models\Chapter;
 
-class BookController {
-    
-    public function detail() {
-        $bookId = $_GET['id'] ?? null;
-
-        if (!$bookId) {
-            die("Thiếu ID sách!");
+class BookController
+{
+    public function detail()
+    {
+        $bookId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if ($bookId <= 0) {
+            http_response_code(400);
+            exit("Thiếu hoặc sai ID sách!");
         }
 
-        // CÁCH KẾT NỐI MỚI - GỌN HƠN VÀ HIỆU QUẢ HƠN
         $db = Database::getConnection();
-        
-        // Phần còn lại giữ nguyên
+
         $bookModel = new Book($db);
         $book = $bookModel->findById($bookId);
+
+        if (!$book) {
+            http_response_code(404);
+            exit("Không tìm thấy sách!");
+        }
 
         $chapterModel = new Chapter($db);
         $chapters = $chapterModel->getChaptersByBookId($bookId);
 
         require_once ROOT_PATH . '/app/Views/books/show.php';
-    
-}
-        public function show() {
-                $this->detail();
-            }
+    }
+
+    public function show()
+    {
+        return $this->detail();
+    }
 }

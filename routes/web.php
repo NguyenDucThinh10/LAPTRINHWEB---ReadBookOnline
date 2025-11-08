@@ -19,3 +19,5 @@ Router::post('/auth/signup', 'Auth\AuthController@signup');
 Router::get('/auth/logout', 'Auth\AuthController@logout');
 
 // (Thêm các route khác của bạn ở đây)
+Router::get('/book/detail', 'BookController@detail');
+Router::get('/book/show', 'BookController@show');
