@@ -20,35 +20,34 @@ class Router
     }
 
     public static function dispatch($uri, $method)
-    {
-        // Loại bỏ query string (ví dụ: ?param=1) khỏi URI
-        if (false !== $pos = strpos($uri, '?')) {
-            $uri = substr($uri, 0, $pos);
-        }
-        $uri = rawurldecode($uri);
+{
+    foreach (self::$routes[$method] as $route => $action) {
+        // Chuyển đổi route có tham số (vd: /book/detail/{id}) thành một biểu thức chính quy (regex)
+        $pattern = preg_replace('/\{([a-zA-Z]+)\}/', '([a-zA-Z0-9_]+)', $route);
+        $pattern = '#^' . $pattern . '$#';
 
-        if (isset(self::$routes[$method][$uri])) {
-            $action = self::$routes[$method][$uri];
+        // So khớp URI hiện tại với pattern
+        if (preg_match($pattern, $uri, $matches)) {
+            // Xóa phần tử đầu tiên (là toàn bộ chuỗi URI khớp được)
+            array_shift($matches);
+            $params = $matches; // Các tham số còn lại (ví dụ: số '3')
 
-            // Tách controller và method từ chuỗi 'Controller@method'
             list($controller, $methodName) = explode('@', $action);
-            
-            // Xây dựng tên class đầy đủ
             $controllerClassName = 'App\\Controllers\\' . $controller;
-
             if (class_exists($controllerClassName)) {
                 $controllerInstance = new $controllerClassName();
-
                 if (method_exists($controllerInstance, $methodName)) {
-                    $controllerInstance->$methodName();
+                    // Gọi phương thức và truyền các tham số đã bắt được vào
+                    call_user_func_array([$controllerInstance, $methodName], $params);
                     return;
                 }
             }
         }
-
-        // Nếu không tìm thấy route
-        http_response_code(404);
-        echo "404 Not Found - Trang bạn tìm không tồn tại.";
-        exit;
     }
+
+    // Nếu không có route nào khớp
+    http_response_code(404);
+    echo "404 Not Found - Route '{$uri}' không được định nghĩa.";
+    exit;
+}
 }

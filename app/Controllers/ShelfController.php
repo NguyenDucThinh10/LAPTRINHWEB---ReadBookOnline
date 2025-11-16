@@ -94,7 +94,7 @@ if (empty($_SESSION['user'])) {
         $status = $_GET['status'] ?? null;
         $items  = $this->shelf->listByUser($userId, $status);
 
-        include __DIR__ . '/../Views/shelf/index.php';
+        require_once ROOT_PATH . '/app/Views/shelf/index.php';
     }
 
     // ===== Helpers =====
@@ -106,14 +106,15 @@ if (empty($_SESSION['user'])) {
     exit;
 }
 
-private function redirect(string $path, string $msg): void {
-    $_SESSION['flash'] = $msg;
-    // ✅ Nếu $path là path tương đối, gắn BASE_URL
-    if (strpos($path, 'http://') !== 0 && strpos($path, 'https://') !== 0) {
-        $path = BASE_URL . $path;
+
+    private function redirect(string $path, string $msg): void {
+        $_SESSION['flash'] = $msg;
+        // Đảm bảo path là URL tuyệt đối
+        if (strpos($path, 'http') !== 0) {
+            $path = BASE_URL . $path;
+        }
+        header('Location: ' . $path);
+        exit;
     }
-    header('Location: ' . $path);
-    exit;
-}
 
 }

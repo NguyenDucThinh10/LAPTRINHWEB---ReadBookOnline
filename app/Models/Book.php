@@ -61,4 +61,48 @@ class Book {
         // Trả về ID của hàng cuối cùng vừa được chèn
         return $this->conn->lastInsertId();
     }
+    public function searchByTitle($keyword) {
+        // Dùng LIKE để tìm kiếm gần đúng
+        $query = "SELECT * FROM " . $this->table . " WHERE title LIKE :keyword ORDER BY created_at DESC";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        // Thêm dấu % để tìm kiếm bất kỳ đâu trong tiêu đề
+        $searchTerm = '%' . $keyword . '%';
+        $stmt->bindParam(':keyword', $searchTerm);
+        
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function findByCategoryId($categoryId) {
+        $query = "SELECT * FROM " . $this->table . " WHERE category_id = :category_id ORDER BY created_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':category_id', $categoryId, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    
+     // === PHƯƠNG THỨC MỚI 1: Tăng lượt xem ===
+    public function incrementViews($bookId) {
+        $query = "UPDATE " . $this->table . " SET views = views + 1 WHERE book_id = :book_id";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':book_id', $bookId, \PDO::PARAM_INT);
+        
+        // Chúng ta không cần kiểm tra kết quả trả về ở đây
+        // vì việc tăng view là một tác vụ "fire-and-forget"
+        $stmt->execute();
+    }
+
+    // === PHƯƠNG THỨC MỚI 2: Lấy sách có nhiều lượt xem nhất ===
+    public function getTopViewed($limit = 4) {
+        $query = "SELECT * FROM " . $this->table . " ORDER BY views DESC LIMIT :limit";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

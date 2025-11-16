@@ -51,5 +51,19 @@ Router::get('/author/books/create', 'Author\BookController@create');
 Router::post('/author/books/store', 'Author\BookController@store');
 
 // (Thêm các route khác của bạn ở đây)
-Router::get('/book/detail', 'BookController@detail');
+Router::get('/book/detail/{id}', 'BookController@detail');
 Router::get('/book/show', 'BookController@show');
+Router::get('/chapter/read/{id}', 'ChapterController@read');
+Router::get('/shelf/index', 'ShelfController@index');
+Router::get('/shelf',       'ShelfController@index');
+
+// Thêm sách vào tủ
+Router::post('/shelf/add', 'ShelfController@add');
+
+// Cập nhật trạng thái đọc (Muốn đọc → Đang đọc → Đã đọc)
+Router::post('/shelf/status', 'ShelfController@updateStatus');
+
+// Xóa sách khỏi tủ
+Router::post('/shelf/remove', 'ShelfController@remove');
+Router::get('/search', 'BookController@search');
+Router::get('/category/{id}', 'BookController@listByCategory');

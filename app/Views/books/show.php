@@ -14,8 +14,9 @@ ob_start();
       <!-- Cột hiển thị ảnh bìa sách -->
       <div class="col-md-4">
         <figure class="products-thumb">
-          <img src="<?= htmlspecialchars($book['cover_image']) ?>" alt="...">
-            alt="Bìa sách <?php echo htmlspecialchars($book['title']); ?>" class="single-image">
+          <img src="<?php echo BASE_URL; ?>/<?php echo htmlspecialchars($book['cover_image']); ?>"
+            alt="Bìa sách <?php echo htmlspecialchars($book['title']); ?>" class="single-image"
+            style="width: 100%; height: auto; object-fit: cover;">
         </figure>
       </div>
 
@@ -39,13 +40,13 @@ ob_start();
             <?php if (!empty($chapters)): ?>
             <div class="btn-wrap">
               <!-- Link tới trang đọc chương đầu tiên (sẽ làm sau) -->
-              <a href="index.php?controller=chapter&action=read&id=<?php echo $chapters[0]['chapter_id']; ?>"
+              <a href="<?php echo BASE_URL; ?>/chapter/read/<?php echo $chapters[0]['chapter_id']; ?>"
                 class="btn btn-outline-accent btn-accent-arrow">
                 Đọc từ đầu <i class="icon icon-ns-arrow-right"></i>
               </a>
             </div>
             <?php endif; ?>
-                        <!-- NÚT: Thêm vào tủ -->
+            <!-- NÚT: Thêm vào tủ -->
             <form action="shelf/add" method="POST" class="mt-3">
               <input type="hidden" name="book_id" value="<?= (int)$book['book_id'] ?>">
 
@@ -83,7 +84,7 @@ ob_start();
           <!-- Mỗi chương là một item trong danh sách -->
           <!-- Link tới trang đọc của chương đó (sẽ làm sau) -->
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="index.php?controller=chapter&action=read&id=<?php echo $chapter['chapter_id']; ?>">
+            <a href="<?php echo BASE_URL; ?>/chapter/read/<?php echo $chapter['chapter_id']; ?>">
               Chương <?php echo $chapter['chapter_number']; ?>: <?php echo htmlspecialchars($chapter['title']); ?>
             </a>
             <i class="icon icon-arrow-right"></i>
