@@ -11,16 +11,6 @@ class ShelfController {
             session_start();
         }
 
-      // ✅ FAKE LOGIN TẠM (xóa khối này khi nhóm login xong)
-if (empty($_SESSION['user'])) {
-    $_SESSION['user'] = [
-        'user_id'  => 1,
-        'username' => 'demo_user'
-    ];
-}
-
-
-
         $this->shelf = new ShelfItem();
     }
 
@@ -30,12 +20,13 @@ if (empty($_SESSION['user'])) {
             http_response_code(405); exit('Method Not Allowed');
         }
 
-        if (empty($_SESSION['user'])) {
-           $this->redirect('/auth/login', 'Bạn cần đăng nhập để thêm sách vào tủ.');
-
+        // Chỉ check user_id
+        if (empty($_SESSION['user_id'])) {
+            //  KHÔNG có dấu / ở đầu, KHÔNG có /public
+            $this->redirect('auth/login', 'Bạn cần đăng nhập để thêm sách vào tủ.');
         }
 
-        $userId = (int) ($_SESSION['user']['user_id'] ?? 0);
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
         $bookId = (int) ($_POST['book_id'] ?? 0);
         $status = $_POST['status'] ?? 'want_to_read';
 
@@ -55,11 +46,11 @@ if (empty($_SESSION['user'])) {
             http_response_code(405); exit('Method Not Allowed');
         }
 
-        if (empty($_SESSION['user'])) {
-            $this->redirect(BASE_URL . '/?controller=auth&action=login', 'Bạn cần đăng nhập.');
+        if (empty($_SESSION['user_id'])) {
+            $this->redirect('auth/login', 'Bạn cần đăng nhập.');
         }
 
-        $userId = (int) ($_SESSION['user']['user_id'] ?? 0);
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
         $bookId = (int) ($_POST['book_id'] ?? 0);
         $status = $_POST['status'] ?? 'want_to_read';
 
@@ -73,11 +64,11 @@ if (empty($_SESSION['user'])) {
             http_response_code(405); exit('Method Not Allowed');
         }
 
-        if (empty($_SESSION['user'])) {
-            $this->redirect(BASE_URL . '/?controller=auth&action=login', 'Bạn cần đăng nhập.');
+        if (empty($_SESSION['user_id'])) {
+            $this->redirect('auth/login', 'Bạn cần đăng nhập.');
         }
 
-        $userId = (int) ($_SESSION['user']['user_id'] ?? 0);
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
         $bookId = (int) ($_POST['book_id'] ?? 0);
 
         $ok = $this->shelf->remove($userId, $bookId);
@@ -86,11 +77,11 @@ if (empty($_SESSION['user'])) {
 
     // 4) Hiển thị danh sách tủ
     public function index(): void {
-        if (empty($_SESSION['user'])) {
-            $this->redirect(BASE_URL . '/?controller=auth&action=login', 'Bạn cần đăng nhập.');
+        if (empty($_SESSION['user_id'])) {
+            $this->redirect('auth/login', 'Bạn cần đăng nhập.');
         }
 
-        $userId = (int) ($_SESSION['user']['user_id'] ?? 0);
+        $userId = (int) ($_SESSION['user_id'] ?? 0);
         $status = $_GET['status'] ?? null;
         $items  = $this->shelf->listByUser($userId, $status);
 
@@ -99,21 +90,26 @@ if (empty($_SESSION['user'])) {
 
     // ===== Helpers =====
     private function back(string $msg): void {
-    $_SESSION['flash'] = $msg;
-    $fallback = BASE_URL . '/shelf'; // ✅ Router mới dùng clean URL
-    $goto = $_SERVER['HTTP_REFERER'] ?? $fallback;
-    header('Location: ' . $goto);
-    exit;
-}
-
-private function redirect(string $path, string $msg): void {
-    $_SESSION['flash'] = $msg;
-    // ✅ Nếu $path là path tương đối, gắn BASE_URL
-    if (strpos($path, 'http://') !== 0 && strpos($path, 'https://') !== 0) {
-        $path = BASE_URL . $path;
+        $_SESSION['flash'] = $msg;
+        // ✅ thêm /public
+        $fallback = BASE_URL . '/public/shelf';
+        $goto = $_SERVER['HTTP_REFERER'] ?? $fallback;
+        header('Location: ' . $goto);
+        exit;
     }
-    header('Location: ' . $path);
-    exit;
-}
 
+    private function redirect(string $path, string $msg): void {
+        $_SESSION['flash'] = $msg;
+
+        // Nếu đã là URL đầy đủ thì giữ nguyên
+        if (strpos($path, 'http://') === 0 || strpos($path, 'https://') === 0) {
+            $url = $path;
+        } else {
+            // ✅ Tự động thêm BASE_URL + /public/
+            $url = BASE_URL . '/public/' . ltrim($path, '/');
+        }
+
+        header('Location: ' . $url);
+        exit;
+    }
 }

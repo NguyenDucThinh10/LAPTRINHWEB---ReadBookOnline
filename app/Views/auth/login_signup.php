@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biểu mẫu Đăng nhập và Đăng ký</title>
+  <base href="<?= BASE_URL ?>/public/">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -16,7 +17,7 @@
     <!-- Form Đăng Nhập php -S localhost:8080 -t public -->
     <div class="form-box login">
       <h2 class="title animation" style="--i:0; --j:21">Đăng Nhập</h2>
-      <form method="POST" action="/auth/login">
+      <form method="POST" action="auth/login">
         <div class="input-box animation" style="--i:1; --j:22">
           <input type="text" name="username"
             value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>
@@ -45,7 +46,7 @@
     <!-- Form Đăng Ký -->
     <div class="form-box register">
       <h2 class="title animation" style="--i:17; --j:0">Đăng Ký</h2>
-      <form method="POST" action="/auth/signup">
+      <form method="POST" action="auth/signup">
         <div class="input-box animation" style="--i:18; --j:1">
           <input type="text" name="username"
             value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>" required>

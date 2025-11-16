@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Core\Database;
 use App\Models\Book;
 use App\Models\Chapter;
+use App\Models\Review;
 
 class BookController
 {
@@ -27,6 +28,20 @@ class BookController
 
         $chapterModel = new Chapter($db);
         $chapters = $chapterModel->getChaptersByBookId($bookId);
+        
+        $page   = max(1, (int)($_GET['page'] ?? 1));
+        $limit  = 5;
+        $offset = ($page - 1) * $limit;
+
+        $rvModel = new Review();
+        $reviews = $rvModel->listByBook($bookId, $offset, $limit);
+        $total   = $rvModel->countByBook($bookId);
+        $avg     = $rvModel->avgByBook($bookId);
+
+        if (session_status()===PHP_SESSION_NONE) session_start();
+        $myReview = !empty($_SESSION['user_id'])
+            ? $rvModel->findByBookAndUser($bookId, (int)$_SESSION['user_id'])
+            : null;
 
         require_once ROOT_PATH . '/app/Views/books/show.php';
     }

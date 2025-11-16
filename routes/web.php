@@ -53,3 +53,8 @@ Router::post('/author/books/store', 'Author\BookController@store');
 // (Thêm các route khác của bạn ở đây)
 Router::get('/book/detail', 'BookController@detail');
 Router::get('/book/show', 'BookController@show');
+
+// Reviews
+Router::post('/reviews/add',    'ReviewController@add');
+Router::post('/reviews/update', 'ReviewController@update');
+Router::post('/reviews/delete', 'ReviewController@delete');
