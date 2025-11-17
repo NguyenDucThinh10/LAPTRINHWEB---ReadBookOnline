@@ -23,16 +23,11 @@ class User extends Database
     }
     
     /**
-     * ✅ ĐÃ CẬP NHẬT
      * Tìm một người dùng bằng ID.
-     * Đã thêm 'author_name' vào câu SELECT.
-     * @param int $id
-     * @return mixed
      */
     public static function findById($id)
     {
         $db = static::getConnection();
-        // Lấy thêm cột author_name để hiển thị trên trang cá nhân
         $sql = "SELECT user_id, username, email, role, created_at, author_name 
                 FROM Users WHERE user_id = :id LIMIT 1";
         $stmt = $db->prepare($sql);
@@ -71,15 +66,11 @@ class User extends Database
     }
 
     // =================================================================
-    // ✅ HÀM MỚI ĐƯỢC THÊM VÀO
+    // CÁC HÀM CHO CHỨC NĂNG ADMIN
     // =================================================================
 
     /**
      * Nâng cấp vai trò của user thành 'author' và lưu bút danh
-     * Hàm này sẽ được gọi bởi Admin Controller (trong Transaction)
-     * @param int $userId
-     * @param string $authorName
-     * @return bool
      */
     public static function upgradeToAuthor($userId, $authorName)
     {
@@ -92,9 +83,47 @@ class User extends Database
             ':user_id'     => $userId
         ]);
     }
+    
+    /**
+     * Lấy tất cả người dùng (cho Admin)
+     */
+    public static function getAll()
+    {
+        $db = static::getConnection();
+        $sql = "SELECT user_id, username, email, role, author_name, created_at 
+                FROM Users ORDER BY created_at DESC";
+        $stmt = $db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Cập nhật vai trò (role) của một người dùng
+     */
+    public static function updateRole($userId, $newRole)
+    {
+        $db = static::getConnection();
+        $sql = "UPDATE Users SET role = :role WHERE user_id = :user_id";
+        $stmt = $db->prepare($sql);
+        return $stmt->execute([
+            ':role' => $newRole,
+            ':user_id' => $userId
+        ]);
+    }
+
+    /**
+     * ✅ HÀM MỚI BẠN CÒN THIẾU
+     * Xóa một người dùng khỏi cơ sở dữ liệu
+     */
+    public static function delete($userId)
+    {
+        $db = static::getConnection();
+        $sql = "DELETE FROM Users WHERE user_id = :user_id";
+        $stmt = $db->prepare($sql);
+        return $stmt->execute([':user_id' => $userId]);
+    }
 
     // =================================================================
-    // ✅ KẾT THÚC PHẦN CẬP NHẬT MỚI
+    // CÁC HÀM TÌM KIẾM VÀ XÁC THỰC
     // =================================================================
 
     // Tìm user theo username hoặc email (dùng cho đăng nhập)
