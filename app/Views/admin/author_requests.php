@@ -88,6 +88,8 @@
         }
         .btn-approve { background-color: #28a745; color: white; }
         .btn-approve:hover { background-color: #218838; }
+        .btn-reject { background-color: #dc3545; color: white; }
+        .btn-reject:hover { background-color: #c82333; }
     </style>
 </head>
 <body>
@@ -97,6 +99,9 @@
         <nav class="admin-nav">
             <ul>
                 <li><a href="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a></li>
+                <li><a href="/admin/users"><i class="fas fa-users"></i> Quản lí người dùng</a></li>
+                <li><a href="/admin/books"><i class="fas fa-book"></i> Quản lý Sách</a></li>
+                <li><a href="/admin/categories"><i class="fas fa-tags"></i> Quản lý Thể loại</a></li>
                 <li><a href="/admin/author-requests" class="active"><i class="fas fa-user-check"></i> Duyệt Tác giả</a></li>
             </ul>
         </nav>
@@ -108,11 +113,16 @@
     </aside>
 
     <main class="admin-main-content">
-        <h1>Danh sách đăng ký tác giả</h1>
+        <h1>Duyệt yêu cầu Tác giả</h1>
 
         <?php if (isset($_GET['status']) && $_GET['status'] === 'approved'): ?>
             <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i> Duyệt tác giả thành công!
+            </div>
+        <?php endif; ?>
+         <?php if (isset($_GET['status']) && $_GET['status'] === 'rejected'): ?>
+            <div class="alert alert-success" style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;">
+                <i class="fas fa-check-circle"></i> Đã từ chối yêu cầu.
             </div>
         <?php endif; ?>
         <?php if (isset($_GET['error'])): ?>
@@ -151,6 +161,11 @@
                                 
                                 <button type="submit" class="btn btn-approve">
                                     <i class="fas fa-check"></i> Duyệt
+                                </button>
+                            </form> <form action="/admin/reject-author" method="POST" style="margin:0; display: inline-block;">
+                                <input type="hidden" name="request_id" value="<?= $req['request_id'] ?>">
+                                <button type="submit" class="btn btn-reject">
+                                    <i class="fas fa-times"></i> Từ chối
                                 </button>
                             </form>
                         </td>
