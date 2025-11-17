@@ -101,7 +101,6 @@ Router::get('/author/books/create', 'Author\BookController@create');
 Router::post('/author/books/store', 'Author\BookController@store');
 
 
-
 // ...XỬ LÝ YÊU CẦU TỪ CHỐI TÁC
 
 Router::post('/admin/approve-author', 'Admin\DashboardController@approveAuthor');
@@ -166,3 +165,13 @@ Router::post('/admin/categories/update', 'Admin\CategoryController@update');
 // 5. (D)elete: Xử lý xóa
 Router::post('/admin/categories/delete', 'Admin\CategoryController@delete');
 // ✅ KẾT THÚC NHÓM 4
+
+// (Thêm các route khác của bạn ở đây)
+Router::get('/book/detail', 'BookController@detail');
+Router::get('/book/show', 'BookController@show');
+
+// Reviews
+Router::post('/reviews/add',    'ReviewController@add');
+Router::post('/reviews/update', 'ReviewController@update');
+Router::post('/reviews/delete', 'ReviewController@delete');
+

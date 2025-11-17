@@ -19,19 +19,20 @@ ob_start();
           <div class="slider-item">
             <div class="banner-content">
               <h2 class="banner-title">Life of the Wild</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet, libero
-                ipsum enim pharetra hac. Urna commodo, lacus ut magna velit eleifend. Amet, quis
-                urna, a eu.</p>
+              <p>“Đọc sách là một công cụ nền tảng để sống một cuộc đời tốt đẹp. Thông qua sách, chúng ta có thể học hỏi
+                từ trải nghiệm của người khác, làm giàu thêm sự hiểu biết về thế giới và nuôi dưỡng thói quen suy ngẫm
+                cùng sự thấu suốt. Một cuốn sách hay không chỉ đơn thuần cung cấp thông tin; nó còn mời người đọc bước
+                vào một cuộc đối thoại – cuộc đối thoại ấy vẫn tiếp tục định hình tư duy của ta rất lâu sau khi trang
+                cuối cùng đã được lật qua.”</p>
               <div class="btn-wrap">
                 <a href="#" class="btn btn-outline-accent btn-accent-arrow">Read More<i
                     class="icon icon-ns-arrow-right"></i></a>
               </div>
             </div>
             <!--banner-content-->
-            <img src="<?php echo BASE_URL; ?>/images/main-banner1.jpg" alt="banner" class="banner-image">
+            <img src="images/main-banner1.jpg" alt="banner" class="banner-image">
           </div>
           <!--slider-item-->
-
           <div class="slider-item">
             <div class="banner-content">
               <h2 class="banner-title">Birds gonna be Happy</h2>
@@ -44,7 +45,8 @@ ob_start();
               </div>
             </div>
             <!--banner-content-->
-            <img src="<?php echo BASE_URL; ?>/images/main-banner2.jpg" alt="banner" class="banner-image">
+           <img src="images/main-banner2.jpg" alt="banner" class="banner-image">
+
           </div>
           <!--slider-item-->
 
@@ -67,11 +69,12 @@ ob_start();
       <div class="inner-content">
         <div class="logo-wrap">
           <div class="grid">
-            <a href="#"><img src="<?php echo BASE_URL; ?>/images/client-image1.png" alt="client"></a>
-            <a href="#"><img src="<?php echo BASE_URL; ?>/images/client-image2.png" alt="client"></a>
-            <a href="#"><img src="<?php echo BASE_URL; ?>/images/client-image3.png" alt="client"></a>
-            <a href="#"><img src="<?php echo BASE_URL; ?>/images/client-image4.png" alt="client"></a>
-            <a href="#"><img src="<?php echo BASE_URL; ?>/images/client-image5.png" alt="client"></a>
+            <img src="images/client-image1.png" alt="client">
+            <img src="images/client-image2.png" alt="client">
+            <img src="images/client-image3.png" alt="client">
+            <img src="images/client-image4.png" alt="client">
+            <img src="images/client-image5.png" alt="client">
+
           </div>
         </div>
         <!--image-holder-->
@@ -87,9 +90,9 @@ ob_start();
 
         <div class="section-header align-center">
           <div class="title">
-            <span>Some quality items</span>
+            <span>Kho sách</span>
           </div>
-          <h2 class="section-title">Featured Books</h2>
+          <h2 class="section-title">Sách nổi bật</h2>
         </div>
 
         <div class="product-list" data-aos="fade-up">
@@ -101,16 +104,19 @@ ob_start();
                 <figure class="product-style">
 
                   <!-- SỬA 1: Dùng đúng tên cột 'cover_image' từ CSDL -->
-                  <img src="<?php echo BASE_URL; ?>/<?php echo htmlspecialchars($book['cover_image']); ?>"
+                  <img src="<?= htmlspecialchars($book['cover_image']) ?>"
                     alt="Bìa sách <?php echo htmlspecialchars($book['title']); ?>" class="product-item"
                     style="max-width: 300px; height: auto;">
 
                   <!-- SỬA 2: Thay nút "Add to cart" bằng nút "Xem chi tiết" -->
                   <!-- Link này sẽ dẫn đến trang chi tiết của sách sau này -->
-                  <a href="<?php echo BASE_URL; ?>/index.php?controller=book&action=detail&id=<?php echo $book['book_id']; ?>"
+                    <a href="book/detail?id=<?= (int)$book['book_id'] ?>" 
                     class="add-to-cart">
                     Xem chi tiết
                   </a>
+                </figure>
+
+
 
                 </figure>
                 <figcaption>
@@ -156,7 +162,7 @@ ob_start();
 
           <div class="col-md-6">
             <figure class="products-thumb">
-              <img src="<?php echo BASE_URL; ?>/images/single-image.jpg" alt="book" class="single-image">
+              <img src="images/single-image.jpg" alt="book" class="single-image">
             </figure>
           </div>
 
@@ -215,7 +221,7 @@ ob_start();
               <div class="col-md-3">
                 <div class="product-item">
                   <figure class="product-style">
-                    <img src="<?php echo BASE_URL; ?>/images/tab-item1.jpg" alt="Books" class="product-item">
+                    <img src="images/tab-item1.jpg" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                       Cart</button>
                   </figure>
@@ -230,7 +236,7 @@ ob_start();
               <div class="col-md-3">
                 <div class="product-item">
                   <figure class="product-style">
-                    <img src="<?php echo BASE_URL; ?>/images/tab-item2.jpg" alt="Books" class="product-item">
+                    <img src="images/tab-item2.jpg" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                       Cart</button>
                   </figure>
@@ -245,7 +251,7 @@ ob_start();
               <div class="col-md-3">
                 <div class="product-item">
                   <figure class="product-style">
-                    <img src="<?php echo BASE_URL; ?>/images/tab-item3.jpg" alt="Books" class="product-item">
+                    <img src="images/tab-item3.jpg" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                       Cart</button>
                   </figure>
@@ -260,7 +266,7 @@ ob_start();
               <div class="col-md-3">
                 <div class="product-item">
                   <figure class="product-style">
-                    <img src="<?php echo BASE_URL; ?>/images/tab-item4.jpg" alt="Books" class="product-item">
+                    <img src="images/tab-item4.jpg" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                       Cart</button>
                   </figure>
@@ -278,7 +284,7 @@ ob_start();
               <div class="col-md-3">
                 <div class="product-item">
                   <figure class="product-style">
-                    <img src="<?php echo BASE_URL; ?>/images/tab-item5.jpg" alt="Books" class="product-item">
+                    <img src="images/tab-item5.jpg" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                       Cart</button>
                   </figure>
@@ -293,7 +299,7 @@ ob_start();
               <div class="col-md-3">
                 <div class="product-item">
                   <figure class="product-style">
-                    <img src="<?php echo BASE_URL; ?>/images/tab-item6.jpg" alt="Books" class="product-item">
+                    <img src="images/tab-item6.jpg" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                       Cart</button>
                   </figure>
@@ -308,7 +314,7 @@ ob_start();
               <div class="col-md-3">
                 <div class="product-item">
                   <figure class="product-style">
-                    <img src="<?php echo BASE_URL; ?>/images/tab-item7.jpg" alt="Books" class="product-item">
+                    <img src="images/tab-item7.jpg" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                       Cart</button>
                   </figure>
@@ -323,7 +329,7 @@ ob_start();
               <div class="col-md-3">
                 <div class="product-item">
                   <figure class="product-style">
-                    <img src="<?php echo BASE_URL; ?>/images/tab-item8.jpg" alt="Books" class="product-item">
+                    <img src="images/tab-item8.jpg" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                       Cart</button>
                   </figure>
@@ -635,7 +641,7 @@ ob_start();
           <div class="grid product-grid">
             <div class="product-item">
               <figure class="product-style">
-                <img src="<?php echo BASE_URL; ?>/images/product-item5.jpg" alt="Books" class="product-item">
+                <img src="images/product-item5.jpg" alt="Books" class="product-item">
                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                   Cart</button>
               </figure>
@@ -650,7 +656,7 @@ ob_start();
 
             <div class="product-item">
               <figure class="product-style">
-                <img src="<?php echo BASE_URL; ?>/images/product-item6.jpg" alt="Books" class="product-item">
+                <img src="images/product-item6.jpg" alt="Books" class="product-item">
                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                   Cart</button>
               </figure>
@@ -665,7 +671,7 @@ ob_start();
 
             <div class="product-item">
               <figure class="product-style">
-                <img src="<?php echo BASE_URL; ?>/images/product-item7.jpg" alt="Books" class="product-item">
+                <img src="images/product-item7.jpg" alt="Books" class="product-item">
                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                   Cart</button>
               </figure>
@@ -680,7 +686,7 @@ ob_start();
 
             <div class="product-item">
               <figure class="product-style">
-                <img src="<?php echo BASE_URL; ?>/images/product-item8.jpg" alt="Books" class="product-item">
+                <img src="images/product-item8.jpg" alt="Books" class="product-item">
                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                   Cart</button>
               </figure>
@@ -695,7 +701,7 @@ ob_start();
 
             <div class="product-item">
               <figure class="product-style">
-                <img src="<?php echo BASE_URL; ?>/images/product-item2.jpg" alt="Books" class="product-item">
+                <img src="images/product-item2.jpg" alt="Books" class="product-item">
                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
                   Cart</button>
               </figure>
@@ -771,7 +777,7 @@ ob_start();
 
               <figure>
                 <a href="#" class="image-hvr-effect">
-                  <img src="<?php echo BASE_URL; ?>/images/post-img1.jpg" alt="post" class="post-image">
+                  <img src="images/post-img1.jpg" alt="post" class="post-image">
                 </a>
               </figure>
 
@@ -806,7 +812,7 @@ ob_start();
             <article class="column" data-aos="fade-up" data-aos-delay="200">
               <figure>
                 <a href="#" class="image-hvr-effect">
-                  <img src="<?php echo BASE_URL; ?>/images/post-img2.jpg" alt="post" class="post-image">
+                  <img src="images/post-img2.jpg" alt="post" class="post-image">
                 </a>
               </figure>
               <div class="post-item">
@@ -840,7 +846,7 @@ ob_start();
             <article class="column" data-aos="fade-up" data-aos-delay="400">
               <figure>
                 <a href="#" class="image-hvr-effect">
-                  <img src="<?php echo BASE_URL; ?>/images/post-img3.jpg" alt="post" class="post-image">
+                  <img src="images/post-img3.jpg" alt="post" class="post-image">
                 </a>
               </figure>
               <div class="post-item">
@@ -885,37 +891,6 @@ ob_start();
   </div>
 </section>
 
-<section id="download-app" class="leaf-pattern-overlay">
-  <div class="corner-pattern-overlay"></div>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="row">
-
-          <div class="col-md-5">
-            <figure>
-              <img src="<?php echo BASE_URL; ?>/images/device.png" alt="phone" class="single-image">
-            </figure>
-          </div>
-
-          <div class="col-md-7">
-            <div class="app-info">
-              <h2 class="section-title divider">Download our app now !</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus
-                liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna.
-                Adipiscing fames semper erat ac in suspendisse iaculis.</p>
-              <div class="google-app">
-                <img src="<?php echo BASE_URL; ?>/images/google-play.jpg" alt="google play">
-                <img src="<?php echo BASE_URL; ?>/images/app-store.jpg" alt="app store">
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 <?php
 // 3. Dừng "ghi hình" và lấy tất cả nội dung đã ghi vào biến $content
 $content = ob_get_clean();

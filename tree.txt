@@ -1,0 +1,95 @@
+﻿Folder PATH listing
+Volume serial number is 8892-3345
+D:.
+│   composer.json
+│   README.md
+│   sql_create_tables.sql
+│   tree.txt
+│   
+├───app
+│   ├───Controllers
+│   │   │   BookController.php
+│   │   │   HomeController.php
+│   │   │   UserController.php
+│   │   │   
+│   │   ├───Admin
+│   │   │       BookController.php
+│   │   │       DashboardController.php
+│   │   │       UserController.php
+│   │   │       
+│   │   ├───Auth
+│   │   │       AuthController.php
+│   │   │       
+│   │   └───Author
+│   │           BookController.php
+│   │           DashboardController.php
+│   │           
+│   ├───Core
+│   │       Auth.php
+│   │       Controller.php
+│   │       Database.php
+│   │       Request.php
+│   │       Router.php
+│   │       
+│   ├───Models
+│   │       Book.php
+│   │       Chapter.php
+│   │       Genre.php
+│   │       Review.php
+│   │       User.php
+│   │       
+│   └───Views
+│       │   home.php
+│       │   
+│       ├───admin
+│       │   │   dashboard.php
+│       │   │   
+│       │   ├───books
+│       │   │       .gitkeep
+│       │   │       
+│       │   └───users
+│       │           .gitkeep
+│       │           
+│       ├───auth
+│       │       login_signup.php
+│       │       register_success.php
+│       │       
+│       ├───author
+│       │   │   dashboard.php
+│       │   │   
+│       │   └───books
+│       │           .gitkeep
+│       │           
+│       ├───books
+│       │       index.php
+│       │       show.php
+│       │
+|       ├───chapters
+|       |        read.php
+|       |
+│       │      
+│       ├───layouts
+│       │       admin.php
+│       │       app.php
+│       │       author.php
+│       │       
+│       ├───partials
+│       │       book_card.php
+│       │       
+│       └───user
+│               profile.php
+│               
+├───config
+│       app.php
+│       database.php
+│       
+├───public
+│   │   .htaccess
+│   │   index.php
+│   │   
+│   ├───css
+│   └───js
+└───routes
+        login_router.php
+        
+
