@@ -91,4 +91,27 @@ class DashboardController extends Controller
             exit;
         }
     }
+    /**
+     * XỬ LÝ TỪ CHỐI TÁC GIẢ (CÓ TRANSACTION)
+     * Hàm này được gọi bởi route: POST /admin/reject-author
+     */
+    /**
+     * ✅ HÀM MỚI: Xử lý từ chối yêu cầu
+     */
+    public function rejectAuthor()
+    {
+        if (empty($_POST['request_id'])) {
+            header('Location: /admin/author-requests');
+            exit;
+        }
+        
+        $requestId = $_POST['request_id'];
+
+        // Gọi Model để cập nhật trạng thái
+        // Chúng ta không cần Transaction vì chỉ cập nhật 1 bảng
+        AuthorRequest::updateStatus($requestId, 'rejected');
+        
+        header('Location: /admin/author-requests?status=rejected');
+        exit;
+    }    
 }

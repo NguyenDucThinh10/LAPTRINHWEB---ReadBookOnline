@@ -4,8 +4,9 @@
 return [
 
     'host' => 'localhost',
+    'port' => '3306',
     'dbname' => 'onlinelibrary',
-    'username' => 'root',        // Đổi tên 'username' thành 'user' cho nhất quán với code của bạn
-    'password' => '',            // NHẬP MẬT KHẨU NẾU CÓ
-    'charset' => 'utf8mb4'       // Giữ lại charset, rất tốt
+    'user' => 'root',        // Đổi tên 'username' thành 'user' cho nhất quán với code của bạn
+    'password' => '12312312',            // NHẬP MẬT KHẨU NẾU CÓ
+    'charset' => 'utf8mb4'       
 ];

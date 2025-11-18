@@ -56,6 +56,12 @@
             margin: 0;
             font-size: 2.2em;
         }
+        
+        /* ✅ Thêm 1 div để bọc các nút */
+        .header-actions {
+            display: flex;
+            gap: 10px; /* Khoảng cách giữa các nút */
+        }
 
         /* Nút "Thêm sách mới" - Chức năng Upload */
         .btn-primary {
@@ -75,6 +81,27 @@
         .btn-primary i {
             margin-right: 8px;
         }
+        
+        /* ✅ CSS CHO NÚT MỚI */
+        .btn-secondary {
+            background-color: #f7f3f0; /* Màu nền be nhạt */
+            color: var(--body-text-color);
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: var(--body-font);
+            display: inline-block;
+            transition: background-color 0.3s;
+            border: 1px solid #d7ccc8; /* Thêm viền mỏng */
+        }
+        .btn-secondary:hover {
+            background-color: #efebe9; /* Đậm hơn khi hover */
+        }
+        .btn-secondary i {
+            margin-right: 8px;
+        }
+
 
         /* --- Bảng danh sách sách --- */
         .author-table {
@@ -122,10 +149,16 @@
         <div class="author-header">
             <h1>Sách của tôi</h1>
             
-            <a href="/author/books/create" class="btn-primary">
-                <i class="fas fa-plus"></i> Thêm sách mới
-            </a>
-        </div>
+            <div class="header-actions">
+                <a href="/" class="btn-secondary">
+                    <i class="fas fa-home"></i> Về Trang chủ
+                </a>
+                
+                <a href="/author/books/create" class="btn-primary">
+                    <i class="fas fa-plus"></i> Thêm sách mới
+                </a>
+            </div>
+            </div>
 
         <h2>Bảng sách</h2>
         

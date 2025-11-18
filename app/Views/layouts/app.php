@@ -13,7 +13,7 @@
   <meta name="keywords" content="">
   <meta name="description" content="">
     <!-- ĐẶT GỐC CHO TÀI NGUYÊN TĨNH: trỏ về /public -->
-  <base href="<?= BASE_URL ?>/public/">
+  <base href="<?= BASE_URL ?>/">
 
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -126,9 +126,7 @@
                   <li class="menu-item"><a href="#popular-books" class="nav-link">Popular</a></li>
                   <li class="menu-item"><a href="#special-offer" class="nav-link">Offer</a></li>
                   <li class="menu-item"><a href="#latest-blog" class="nav-link">Articles</a></li>
-                  <li class="menu-item"><a href="shelf" class="nav-link">Tủ Sách</a>
-
-                </li>
+                  <li class="menu-item"><a href="/shelf" class="nav-link">Tủ Sách</a></li>
 
                 </ul>
 

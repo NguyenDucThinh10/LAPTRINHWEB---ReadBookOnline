@@ -175,3 +175,15 @@ Router::post('/reviews/add',    'ReviewController@add');
 Router::post('/reviews/update', 'ReviewController@update');
 Router::post('/reviews/delete', 'ReviewController@delete');
 
+// ===========================================
+// Hiển thị trang Tủ sách (gọi hàm index)
+Router::get('/shelf', 'ShelfController@index');
+
+// Xử lý cập nhật status (Đang đọc, Đã đọc...)
+Router::post('/shelf/status', 'ShelfController@updateStatus');
+
+// Xử lý xóa sách khỏi tủ
+Router::post('/shelf/remove', 'ShelfController@remove');
+
+// Xử lý thêm sách vào tủ
+Router::post('/shelf/add', 'ShelfController@add');

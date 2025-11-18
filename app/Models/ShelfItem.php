@@ -58,6 +58,6 @@ class ShelfItem {
             $st = $this->db->prepare($sql);
             $st->execute([$userId]);
         }
-        return $st->fetchAll();
+        return $st->fetchAll(PDO::FETCH_ASSOC);
     }
 }
