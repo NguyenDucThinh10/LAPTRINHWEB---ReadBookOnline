@@ -65,4 +65,10 @@ class AuthorRequest extends Database
             ':request_id' => $requestId
         ]);
     }
+    // ... bên trong class AuthorRequest
+    public static function countPending() {
+        $db = static::getConnection();
+        $stmt = $db->query("SELECT COUNT(*) FROM AuthorRequests WHERE status = 'pending'");
+        return $stmt->fetchColumn();
+    }
 }

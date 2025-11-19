@@ -99,7 +99,7 @@
         <nav class="admin-nav">
             <ul>
                 <li><a href="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a></li>
-                <li><a href="/admin/users"><i class="fas fa-users"></i> Quản lí người dùng</a></li>
+                <li><a href="/admin/users"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
                 <li><a href="/admin/books"><i class="fas fa-book"></i> Quản lý Sách</a></li>
                 <li><a href="/admin/categories"><i class="fas fa-tags"></i> Quản lý Thể loại</a></li>
                 <li><a href="/admin/author-requests" class="active"><i class="fas fa-user-check"></i> Duyệt Tác giả</a></li>
@@ -113,7 +113,7 @@
     </aside>
 
     <main class="admin-main-content">
-        <h1>Duyệt yêu cầu Tác giả</h1>
+        <h1>Quản lý tác giả</h1>
 
         <?php if (isset($_GET['status']) && $_GET['status'] === 'approved'): ?>
             <div class="alert alert-success">

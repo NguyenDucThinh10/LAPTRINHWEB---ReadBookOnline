@@ -66,12 +66,9 @@ class ShelfController { // ⬅️ Đã xóa "extends Controller"
     public function index(): void {
         $status = $_GET['status'] ?? null;
         $items  = $this->shelf->listByUser($this->userId, $status);
-        
-        // (Biến $items sẽ tự động có sẵn trong file view)
-
-        // ✅ QUAY LẠI CÁCH CŨ: Dùng "require"
         // (File index.php sẽ tự lo nạp layout)
         require __DIR__ . '/../Views/shelf/index.php';
+
     }
 
     // ===== Helpers (Giữ nguyên) =====
@@ -90,4 +87,5 @@ class ShelfController { // ⬅️ Đã xóa "extends Controller"
         header('Location: ' . $url);
         exit;
     }
+
 }

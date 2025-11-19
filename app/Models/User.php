@@ -180,4 +180,10 @@ class User extends Database
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    // ... bên trong class User
+    public static function countAll() {
+        $db = static::getConnection();
+        $stmt = $db->query("SELECT COUNT(*) FROM Users");
+        return $stmt->fetchColumn();
+    }
 }

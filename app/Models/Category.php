@@ -21,9 +21,7 @@ class Category {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // =================================================================
-    // ✅ HÀM FINDBYID() BẠN ĐANG THIẾU LÀ HÀM NÀY
-    // =================================================================
+
 
     /**
      * Tìm một thể loại bằng ID
@@ -69,5 +67,21 @@ class Category {
         $sql = "DELETE FROM " . $this->table . " WHERE category_id = :id";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([':id' => $categoryId]);
+    }
+    public function getList($limit = 6) {
+        $query = "SELECT category_id, name FROM " . $this->table . " ORDER BY name ASC LIMIT :limit";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+    // ... bên trong class Category
+    public function countAll() {
+        $stmt = $this->conn->query("SELECT COUNT(*) FROM " . $this->table);
+        return $stmt->fetchColumn();
     }
 }

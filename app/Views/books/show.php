@@ -15,11 +15,11 @@ ob_start();
     <div class="row">
       <div class="col-md-4">
         <figure class="products-thumb">
-          <img
-            src="<?= htmlspecialchars($book['cover_image']) ?>"
-            alt="Bìa sách <?= htmlspecialchars($book['title']) ?>"
-            class="single-image"
-          >
+
+          <img src="<?php echo BASE_URL; ?>/<?php echo htmlspecialchars($book['cover_image']); ?>"
+            alt="Bìa sách <?php echo htmlspecialchars($book['title']); ?>" class="single-image"
+            style="width: 100%; height: auto; object-fit: cover;">
+
         </figure>
       </div>
 
@@ -36,14 +36,17 @@ ob_start();
 
             <?php if (!empty($chapters)): ?>
             <div class="btn-wrap">
-              <a href="/chapters/read/<?= $chapters[0]['chapter_id'] ?>"
-                 class="btn btn-outline-accent btn-accent-arrow">
-                 Đọc từ đầu <i class="icon icon-ns-arrow-right"></i>
+
+              <!-- Link tới trang đọc chương đầu tiên (sẽ làm sau) -->
+              <a href="<?php echo BASE_URL; ?>/chapter/read/<?php echo $chapters[0]['chapter_id']; ?>"
+                class="btn btn-outline-accent btn-accent-arrow">
+                Đọc từ đầu <i class="icon icon-ns-arrow-right"></i>
               </a>
             </div>
             <?php endif; ?>
-            
+            <!-- NÚT: Thêm vào tủ -->
             <form action="/shelf/add" method="POST" class="mt-3">
+
               <input type="hidden" name="book_id" value="<?= (int)$book['book_id'] ?>">
               <div class="d-inline-block me-2">
                 <select name="status" class="form-select" style="display:inline-block;width:auto;">
@@ -172,7 +175,9 @@ ob_start();
         <ul class="list-group">
           <?php foreach ($chapters as $chapter): ?>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="/chapters/read/<?= $chapter['chapter_id'] ?>">
+
+            <a href="<?php echo BASE_URL; ?>/chapter/read/<?php echo $chapter['chapter_id']; ?>">
+
               Chương <?php echo $chapter['chapter_number']; ?>: <?php echo htmlspecialchars($chapter['title']); ?>
             </a>
             <i class="icon icon-arrow-right"></i>

@@ -19,7 +19,7 @@ ob_start();
 }
 
 .chapter-content {
-  font-family: 'Georgia', serif;
+  font-family: "Times New Roman", serif;
   font-size: 1.2rem;
   line-height: 1.8;
   text-align: justify;
@@ -45,19 +45,21 @@ ob_start();
 
     <!-- Thanh điều hướng đầu trang -->
     <div class="chapter-nav">
+      <!-- SỬA LẠI LINK CHƯƠNG TRƯỚC -->
       <?php if ($prevChapter): ?>
-      <a href="index.php?controller=chapter&action=read&id=<?php echo $prevChapter['chapter_id']; ?>"
-        class="nav-button">&lt; Chương Trước</a>
+      <a href="<?php echo BASE_URL; ?>/chapter/read/<?php echo $prevChapter['chapter_id']; ?>" class="nav-button">&lt;
+        Chương Trước</a>
       <?php else: ?>
       <span class="nav-button disabled">&lt; Chương Trước</span>
       <?php endif; ?>
 
-      <a href="index.php?controller=book&action=detail&id=<?php echo $chapter['book_id']; ?>" class="nav-button">Mục
-        Lục</a>
+      <!-- SỬA LẠI LINK MỤC LỤC -->
+      <a href="<?php echo BASE_URL; ?>/book/detail/<?php echo $chapter['book_id']; ?>" class="nav-button">Mục Lục</a>
 
+      <!-- SỬA LẠI LINK CHƯƠNG SAU -->
       <?php if ($nextChapter): ?>
-      <a href="index.php?controller=chapter&action=read&id=<?php echo $nextChapter['chapter_id']; ?>"
-        class="nav-button">Chương Sau &gt;</a>
+      <a href="<?php echo BASE_URL; ?>/chapter/read/<?php echo $nextChapter['chapter_id']; ?>" class="nav-button">Chương
+        Sau &gt;</a>
       <?php else: ?>
       <span class="nav-button disabled">Chương Sau &gt;</span>
       <?php endif; ?>
@@ -66,28 +68,24 @@ ob_start();
     <!-- Nội dung chính của chương -->
     <h2 class="section-title divider text-center"><?php echo htmlspecialchars($chapter['title']); ?></h2>
     <div class="chapter-content mt-5">
-      <?php
-                // nl2br() rất quan trọng, nó chuyển các ký tự xuống dòng (\n) trong database thành thẻ <br> trong HTML
-                echo nl2br(htmlspecialchars($chapter['content'])); 
-            ?>
+      <?php echo nl2br(htmlspecialchars($chapter['content'])); ?>
     </div>
 
-    <!-- Thanh điều hướng cuối trang -->
+    <!-- Thanh điều hướng cuối trang (cũng được sửa lại) -->
     <hr class="my-5">
     <div class="chapter-nav">
       <?php if ($prevChapter): ?>
-      <a href="index.php?controller=chapter&action=read&id=<?php echo $prevChapter['chapter_id']; ?>"
-        class="nav-button">&lt; Chương Trước</a>
+      <a href="<?php echo BASE_URL; ?>/chapter/read/<?php echo $prevChapter['chapter_id']; ?>" class="nav-button">&lt;
+        Chương Trước</a>
       <?php else: ?>
       <span class="nav-button disabled">&lt; Chương Trước</span>
       <?php endif; ?>
 
-      <a href="index.php?controller=book&action=detail&id=<?php echo $chapter['book_id']; ?>" class="nav-button">Mục
-        Lục</a>
+      <a href="<?php echo BASE_URL; ?>/book/detail/<?php echo $chapter['book_id']; ?>" class="nav-button">Mục Lục</a>
 
       <?php if ($nextChapter): ?>
-      <a href="index.php?controller=chapter&action=read&id=<?php echo $nextChapter['chapter_id']; ?>"
-        class="nav-button">Chương Sau &gt;</a>
+      <a href="<?php echo BASE_URL; ?>/chapter/read/<?php echo $nextChapter['chapter_id']; ?>" class="nav-button">Chương
+        Sau &gt;</a>
       <?php else: ?>
       <span class="nav-button disabled">Chương Sau &gt;</span>
       <?php endif; ?>

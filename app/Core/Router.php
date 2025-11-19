@@ -21,34 +21,43 @@ class Router
 
     public static function dispatch($uri, $method)
     {
-        // Loại bỏ query string (ví dụ: ?param=1) khỏi URI
+   
+        
         if (false !== $pos = strpos($uri, '?')) {
             $uri = substr($uri, 0, $pos);
         }
         $uri = rawurldecode($uri);
+        
+       
 
-        if (isset(self::$routes[$method][$uri])) {
-            $action = self::$routes[$method][$uri];
 
-            // Tách controller và method từ chuỗi 'Controller@method'
-            list($controller, $methodName) = explode('@', $action);
-            
-            // Xây dựng tên class đầy đủ
-            $controllerClassName = 'App\\Controllers\\' . $controller;
+        // LOGIC CŨ (ĐƯỢC GIỮ NGUYÊN)
+        // Xử lý các route động (ví dụ: /book/detail/{id})
+        foreach (self::$routes[$method] as $route => $action) {
+            // Chuyển đổi route có tham số thành regex
+            $pattern = preg_replace('/\{([a-zA-Z]+)\}/', '([a-zA-Z0-9_]+)', $route);
+            $pattern = '#^' . $pattern . '$#';
 
-            if (class_exists($controllerClassName)) {
-                $controllerInstance = new $controllerClassName();
+            // So khớp URI (đã được làm sạch) với pattern
+            if (preg_match($pattern, $uri, $matches)) {
+                array_shift($matches);
+                $params = $matches; 
 
-                if (method_exists($controllerInstance, $methodName)) {
-                    $controllerInstance->$methodName();
-                    return;
+                list($controller, $methodName) = explode('@', $action);
+                $controllerClassName = 'App\\Controllers\\' . $controller;
+                if (class_exists($controllerClassName)) {
+                    $controllerInstance = new $controllerClassName();
+                    if (method_exists($controllerInstance, $methodName)) {
+                        call_user_func_array([$controllerInstance, $methodName], $params);
+                        return;
+                    }
                 }
             }
         }
 
-        // Nếu không tìm thấy route
+        // Nếu không có route nào khớp
         http_response_code(404);
-        echo "404 Not Found - Trang bạn tìm không tồn tại.";
+        echo "404 Not Found - Route '{$uri}' không được định nghĩa.";
         exit;
     }
 }

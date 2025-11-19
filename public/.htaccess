@@ -1,6 +1,7 @@
-Options -Indexes
+﻿Options -Indexes
 RewriteEngine On
-RewriteBase /ReadBookOnline/public/
+#RewriteBase /ReadBookOnline/public/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.php [L]
+#RewriteRule ^ index.php [L] - thanh da command lai vi khong chay duoc lenh nay
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

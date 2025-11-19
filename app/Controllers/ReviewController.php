@@ -1,17 +1,23 @@
 <?php
+// File: app/Controllers/ReviewController.php
+// (PHIÊN BẢN ĐÃ SỬA LỖI)
+
 namespace App\Controllers;
 
 use App\Models\Review;
 
 class ReviewController
 {
+    /**
+     * ✅ ĐÃ SỬA: Chuyển hướng đến route /auth/login "đẹp"
+     */
     private function requireLogin(): int
     {
         if (session_status()===PHP_SESSION_NONE) session_start();
         if (empty($_SESSION['user_id'])) {
-            $next = $_SERVER['HTTP_REFERER'] ?? (BASE_URL . '/public/');
-            // thêm /public vào sau BASE_URL
-            header('Location: ' . BASE_URL . '/public/auth/login?next=' . urlencode($next));
+            $next = $_SERVER['HTTP_REFERER'] ?? '/';
+            // Sửa: Xóa BASE_URL và /public/
+            header('Location: /auth/login?next=' . urlencode($next));
             exit;
         }
         return (int)$_SESSION['user_id'];
@@ -29,21 +35,20 @@ class ReviewController
 
         if ($bookId<=0 || $rating<1 || $rating>5) {
             $_SESSION['flash'] = 'Dữ liệu không hợp lệ!';
-            header('Location: ' . BASE_URL . '/public/book/detail?id=' . $bookId . '#reviews');
+            // ✅ ĐÃ SỬA: Chuyển hướng đến route "đẹp"
+            header('Location: /book/show?id=' . $bookId . '#reviews');
             exit;
         }
 
         $rv   = new Review();
-        $mine = $rv->findByBookAndUser($bookId, $uid);
-
-        if ($mine) {
-            $rv->updateMy($bookId, $uid, $rating, $comment);
-        } else {
-            $rv->add($bookId, $uid, $rating, $comment);
-        }
+        
+        // ✅ ĐÃ SỬA: Xóa logic "if ($mine)" thừa thãi.
+        // View (show.php) đã gọi đúng hàm "add", nên chúng ta chỉ cần "add".
+        $rv->add($bookId, $uid, $rating, $comment);
 
         $_SESSION['flash'] = 'Đã lưu đánh giá.';
-        header('Location: ' . BASE_URL . '/public/book/detail?id=' . $bookId . '#reviews');
+        // ✅ ĐÃ SỬA: Chuyển hướng đến route "đẹp"
+        header('Location: /book/show?id=' . $bookId . '#reviews');
         exit;
     }
 
@@ -58,7 +63,8 @@ class ReviewController
 
         if ($bookId<=0 || $rating<1 || $rating>5) {
             $_SESSION['flash'] = 'Dữ liệu không hợp lệ!';
-            header('Location: ' . BASE_URL . '/public/book/detail?id=' . $bookId . '#reviews');
+            // ✅ ĐÃ SỬA: Chuyển hướng đến route "đẹp"
+            header('Location: /book/show?id=' . $bookId . '#reviews');
             exit;
         }
 
@@ -66,7 +72,8 @@ class ReviewController
         $rv->updateMy($bookId, $uid, $rating, $comment);
 
         $_SESSION['flash'] = 'Đã cập nhật đánh giá.';
-        header('Location: ' . BASE_URL . '/public/book/detail?id=' . $bookId . '#reviews');
+        // ✅ ĐÃ SỬA: Chuyển hướng đến route "đẹp"
+        header('Location: /book/show?id=' . $bookId . '#reviews');
         exit;
     }
 
@@ -78,7 +85,8 @@ class ReviewController
         $bookId = (int)($_POST['book_id'] ?? 0);
         if ($bookId<=0) {
             $_SESSION['flash'] = 'Thiếu ID sách!';
-            header('Location: ' . BASE_URL . '/public/');
+            // ✅ ĐÃ SỬA: Chuyển hướng đến trang chủ
+            header('Location: /');
             exit;
         }
 
@@ -86,7 +94,8 @@ class ReviewController
         $rv->deleteMy($bookId, $uid);
 
         $_SESSION['flash'] = 'Đã xóa đánh giá.';
-        header('Location: ' . BASE_URL . '/public/book/detail?id=' . $bookId . '#reviews');
+        // ✅ ĐÃ SỬA: Chuyển hướng đến route "đẹp"
+        header('Location: /book/show?id=' . $bookId . '#reviews');
         exit;
     }
 }

@@ -62,9 +62,9 @@
         <nav class="admin-nav">
             <ul>
                 <li><a href="/admin/dashboard"><i class="fas fa-tachometer-alt"></i> Bảng điều khiển</a></li>
-                <li><a href="/admin/users"><i class="fas fa-users"></i> Quản lý User</a></li>
-                <li><a href="/admin/categories" class="active"><i class="fas fa-tags"></i> Quản lý Thể loại</a></li>                
+                <li><a href="/admin/users"><i class="fas fa-users"></i> Quản lý người dùng</a></li>                
                 <li><a href="/admin/books" class="active"><i class="fas fa-book"></i> Quản lý Sách</a></li>
+                <li><a href="/admin/categories" ><i class="fas fa-tags"></i> Quản lý Thể loại</a></li>
                 <li><a href="/admin/author-requests"><i class="fas fa-user-check"></i> Duyệt Tác giả</a></li>
             </ul>
         </nav>
